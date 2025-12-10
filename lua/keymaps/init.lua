@@ -1,0 +1,5 @@
+require("keymaps.char")
+require("keymaps.bracket")
+require("keymaps.keyboard")
+require("keymaps.convenient")
+require("keymaps.hoge")

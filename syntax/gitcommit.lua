@@ -1,6 +1,6 @@
 local prefixes = "(" .. table.concat(vim.g.gitcommit_prefix,"|") .. ")"
 vim.cmd([[
-    syntax match prefix_gitcommit '\v^]] .. prefixes .. [[!?(\(.{-1,}\))?:' contained containedin=gitcommitSummary
+    syntax match prefix_gitcommit '\v^]] .. prefixes .. [[(\(.{-1,}\))?!?:' contained containedin=gitcommitSummary
 ]])
 vim.cmd([[
     syntax match bracket_prefix_gitcommit '\v\(|\)' contained containedin=prefix_gitcommit
@@ -9,6 +9,7 @@ vim.cmd([[
 ]])
 
 local h = require("highlights").set
+
 h 'prefix_gitcommit' { link = '@function' }
 h 'bracket_prefix_gitcommit' { link = '@punctuation.bracket' }
 h 'argument_prefix_gitcommit' { link = '@variable' }

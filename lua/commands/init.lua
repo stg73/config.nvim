@@ -17,7 +17,7 @@ s.create_reverse("Itijuusenn")(c.Itijuusenn_Nijuusenn)
 s.create("Kadomaru")(c.Kadokaku_Kadomaru)
 s.create_reverse("Kadokaku")(c.Kadokaku_Kadomaru)
 
-local k = require("skk_command")
+local k = require("skk").command
 
 vim.api.nvim_create_user_command("SkkSort", k.sort,
 {bar = true,range = true})

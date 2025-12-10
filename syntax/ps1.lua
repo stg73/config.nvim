@@ -15,16 +15,18 @@ syntax match ps1function '\v[^ ().]+(\(.*\))@='
 syntax match ps1function '\v(^ *function +)@<=[^ (){}]+'
 ]])
 
-vim.api.nvim_set_hl(0,"property_powershell",{link = "@property"})
-vim.api.nvim_set_hl(0,"member_powershell",{link = "@variable.member"})
-vim.api.nvim_set_hl(0,"bracket_powershell",{link = "@punctuation.bracket"})
-vim.api.nvim_set_hl(0,"variableParameter_powershell",{link = "@variable.parameter"})
-    vim.api.nvim_set_hl(0,"delimiter_variableParameter_powershell",{link = "@punctuation.delimiter"})
+local h = require("highlights").set
+
+h "property_powershell" { link = "@property" }
+h "member_powershell" { link = "@variable.member" }
+h "bracket_powershell" { link = "@punctuation.bracket" }
+h "variableParameter_powershell" { link = "@variable.parameter" }
+h "delimiter_variableParameter_powershell" { link = "@punctuation.delimiter" }
 
 -- 元から存在するハイライトグループ
-vim.api.nvim_set_hl(0,"ps1escape",{link = "@string.escape"})
-vim.api.nvim_set_hl(0,"ps1Interpolation",{link = "@punctuation.bracket"})
-vim.api.nvim_set_hl(0,"ps1Variable",{link = "@variable"})
-vim.api.nvim_set_hl(0,"ps1Label",{link = "@property"})
-vim.api.nvim_set_hl(0,"ps1cmdlet",{link = "@function.builtin"})
-vim.api.nvim_set_hl(0,"ps1function",{link = "function"})
+h "ps1escape" { link = "@string.escape" }
+h "ps1Interpolation" { link = "@punctuation.bracket" }
+h "ps1Variable" { link = "@variable" }
+h "ps1Label" { link = "@property" }
+h "ps1cmdlet" { link = "@function.builtin" }
+h "ps1function" { link = "function" }

@@ -8,7 +8,8 @@ vim.cmd([[
     syntax match string_gitcommit '\v".{-}"' contained containedin=gitcommitSummary
 ]])
 
-vim.api.nvim_set_hl(0,'prefix_gitcommit',{link = '@function'})
-vim.api.nvim_set_hl(0,'bracket_prefix_gitcommit',{link = '@punctuation.bracket'})
-vim.api.nvim_set_hl(0,'argument_prefix_gitcommit',{link = '@variable'})
-vim.api.nvim_set_hl(0,'string_gitcommit',{link = '@string'})
+local h = require("highlights").set
+h 'prefix_gitcommit' { link = '@function' }
+h 'bracket_prefix_gitcommit' { link = '@punctuation.bracket' }
+h 'argument_prefix_gitcommit' { link = '@variable' }
+h 'string_gitcommit' { link = '@string' }

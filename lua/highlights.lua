@@ -1,4 +1,7 @@
-local h = require("tbl").curry3(vim.api.nvim_set_hl)(0)
+local M = {}
+M.set = require("tbl").curry3(vim.api.nvim_set_hl)(0)
+
+local h = M.set
 
 h 'normalnc' { bg = 'none' }
 h '@keyword' { fg = '#9d7cd8' }
@@ -16,3 +19,5 @@ h 'linenc' { link = 'linenr' }
 h 'statuslinenc' { link = 'linenr' }
 h 'winseparator' { link = 'linenr' }
 h 'statusline' { link = 'linenr' }
+
+return M

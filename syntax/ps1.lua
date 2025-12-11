@@ -15,18 +15,18 @@ syntax match ps1function '\v[^ ().]+(\(.*\))@='
 syntax match ps1function '\v(^ *function +)@<=[^ (){}]+'
 ]])
 
-local h = require("highlights").set
+local l = require("highlights").link
 
-h "property_powershell" { link = "@property" }
-h "member_powershell" { link = "@variable.member" }
-h "bracket_powershell" { link = "@punctuation.bracket" }
-h "variableParameter_powershell" { link = "@variable.parameter" }
-h "delimiter_variableParameter_powershell" { link = "@punctuation.delimiter" }
+l "property_powershell" "@property"
+l "member_powershell" "@variable.member"
+l "bracket_powershell" "@punctuation.bracket"
+l "variableParameter_powershell" "@variable.parameter"
+l "delimiter_variableParameter_powershell" "@punctuation.delimiter"
 
 -- 元から存在するハイライトグループ
-h "ps1escape" { link = "@string.escape" }
-h "ps1Interpolation" { link = "@punctuation.bracket" }
-h "ps1Variable" { link = "@variable" }
-h "ps1Label" { link = "@property" }
-h "ps1cmdlet" { link = "@function.builtin" }
-h "ps1function" { link = "function" }
+l "ps1escape" "@string.escape"
+l "ps1Interpolation" "@punctuation.bracket"
+l "ps1Variable" "@variable"
+l "ps1Label" "@property"
+l "ps1cmdlet" "@function.builtin"
+l "ps1function" "function"

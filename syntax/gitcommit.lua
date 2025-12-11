@@ -8,9 +8,9 @@ vim.cmd([[
     syntax match string_gitcommit '\v".{-}"' contained containedin=gitcommitSummary
 ]])
 
-local h = require("highlights").set
+local l = require("highlights").link
 
-h 'prefix_gitcommit' { link = '@function' }
-h 'bracket_prefix_gitcommit' { link = '@punctuation.bracket' }
-h 'argument_prefix_gitcommit' { link = '@variable' }
-h 'string_gitcommit' { link = '@string' }
+l 'prefix_gitcommit' '@function'
+l 'bracket_prefix_gitcommit' '@punctuation.bracket'
+l 'argument_prefix_gitcommit' '@variable'
+l 'string_gitcommit' '@string'

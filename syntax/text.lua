@@ -2,6 +2,6 @@ vim.cmd([[
 syntax match string_text '\v".{-}"'
 ]])
 
-local h = require("highlights").set
+local l = require("highlights").link
 
-h 'string_text' { link = 'string' }
+l 'string_text' 'string'

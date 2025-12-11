@@ -1,3 +1,3 @@
-local h = require("highlights").set
+local l = require("highlights").link
 
-h "htmlEndTag" { link = "htmlTag" }
+l "htmlEndTag" "htmlTag"

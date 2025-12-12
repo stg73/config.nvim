@@ -131,3 +131,20 @@ s.add({
     ht = require("open_webpage").open,
     gh = require("open_github").open,
 })
+
+do
+    local extui = require("vim._extui")
+
+    extui.enable({
+        enable = true,
+        msg = {
+            target = "msg",
+            timeout = 2000
+        }
+    })
+
+    -- tOggle
+    vim.keymap.set("n","<leader>o",function()
+        vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
+    end)
+end

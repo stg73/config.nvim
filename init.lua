@@ -1,9 +1,9 @@
 vim.loader.enable(true) -- よく分からない
 
--- 作ったモジュール
-vim.opt.runtimepath:append(vim.env.works .. "/modules.nvim")
-vim.opt.runtimepath:append(vim.env.works .. "/jump_cursor.nvim")
-vim.opt.runtimepath:append(vim.env.works .. "/syntax.nvim") -- ハイライト
+-- ローカルのプラグイン読み込み
+vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. name .. ".nvim") end,{
+    "modules", "jump_cursor", "syntax"
+})
 
 regex = require("regex")
 tbl = require("tbl")
@@ -27,10 +27,9 @@ vim.keymap.set({"o","n","v"},"<leader>j",require("select_position").opt().set_cu
 vim.keymap.set({"o","n","v"},"<leader><leader>",require("select_position").opt({ character = "/s" }).set_cursor)
 
 -- デフォルトプラグインを無効化
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrwSettings = 1
-vim.g.loaded_netrwFileHandlers = 1
+tbl.map(function(plugin) vim.g["loaded_" .. plugin] = 1 end)({
+    "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers"
+})
 
 -- シンタクスハイライト
 vim.g.gitcommit_prefix = { "feat", "fix", "change", "docs", "improve", "refactor", "revert", "style", "update", }

@@ -11,7 +11,6 @@ local P = require("package_manager").directory(vim.env.home .. "/test/package")
 
 P.load_table({
     ["nvim-ghost.nvim"] = {
-        now = true,
         config = function()
             -- jugem.jpのリッチテキストエディタの場合に上手くいかない
             vim.api.nvim_create_autocmd('user',{
@@ -27,19 +26,19 @@ P.load_table({
         end,
     },
     ["nvimdoc-ja"] = {
-        event = "CmdLineEnter",
+        lazy = { event = "CmdLineEnter" },
         config = function()
             P.load("vimdoc-ja")
         end
     },
     ["jumpcursor.vim"] = {
-        nmap = "<Plug>(jumpcursor-jump)",
+        lazy = { nmap = "<Plug>(jumpcursor-jump)" },
         setup = function()
             vim.keymap.set('n','<leader>J','<Plug>(jumpcursor-jump)')
         end,
     },
     ["vim-surround"] = {
-        event = "CmdLineEnter",
+        lazy = { event = "CmdLineEnter" },
         config = function()
             local s = require("tbl").curry3(vim.keymap.set)("n")
             local nop = require("tbl").flip(s)("")
@@ -67,7 +66,6 @@ P.load_table({
         end,
     },
     ["tokyonight.nvim"] = {
-        now = true,
         config = function()
             require("tokyonight").load({
                 terminal_colors = false,

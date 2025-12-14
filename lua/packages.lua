@@ -42,16 +42,17 @@ P.load_table({
         event = "CmdLineEnter",
         config = function()
             local s = require("tbl").curry3(vim.keymap.set)("n")
-            s 'sd' '<Plug>Dsurround'   s 'sd<esc>' ''
-            s 'ss' '<Plug>Yssurround'  s 'ss<esc>' ''
-            s 'sS' '<Plug>YSsurround'  s 'sS<esc>' ''
-            s 'sa' '<Plug>Ysurround'   s 'sa<esc>' ''
-            s 'sr' '<Plug>Csurround'   s 'sr<esc>' ''
-            s 'sR' '<Plug>CSurround'   s 'sR<esc>' ''
+            local nop = require("tbl").flip(s)("")
+            s 'sd' '<Plug>Dsurround'   nop 'sd<esc>'
+            s 'ss' '<Plug>Yssurround'  nop 'ss<esc>'
+            s 'sS' '<Plug>YSsurround'  nop 'sS<esc>'
+            s 'sa' '<Plug>Ysurround'   nop 'sa<esc>'
+            s 'sr' '<Plug>Csurround'   nop 'sr<esc>'
+            s 'sR' '<Plug>CSurround'   nop 'sR<esc>'
             vim.keymap.set('v','s','<Plug>VSurround')
 
-            s "s" ""
-            s "s<esc>" ""
+            nop "s"
+            nop "s<esc>"
 
             local d = require("tbl").curry2(vim.keymap.del)("n")
             d 'ds'

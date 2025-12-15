@@ -19,11 +19,24 @@ vim.filetype.add({
     }
 })
 
--- 検索コマンドラインウィンドウのファイルタイプを設定する
+-- 検索でシンタクスハイライトが使えるように
+local group = vim.api.nvim_create_augroup("highlight-search",{})
+
+-- コマンドラインウィンドウ
 vim.api.nvim_create_autocmd('CmdWinEnter',{
-    group = vim.api.nvim_create_augroup("set-filetype-of-search-window",{}),
+    group = group,
     pattern = {"/","?"},
     callback = function()
         vim.bo.filetype = "regex"
+    end,
+})
+
+-- コマンドライン  extui用
+vim.api.nvim_create_autocmd("CmdLineEnter",{
+    group = group,
+    pattern = {"/","?"},
+    callback = function()
+        local cmdline = require("vim._extui.shared").bufs.cmd
+        vim.bo[cmdline].syntax = "regex"
     end,
 })

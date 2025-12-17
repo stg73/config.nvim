@@ -124,8 +124,6 @@ vim.api.nvim_create_autocmd("filetype",{
 local s = require("custom_url_scheme")
 s.init()
 s.add({
-    http = require("open_webpage").open,
-    https = require("open_webpage").open,
     github = require("open_github").open,
     ht = require("open_webpage").open,
     gh = require("open_github").open,

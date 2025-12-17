@@ -22,6 +22,11 @@ k("n","gss",function()
     search(vim.api.nvim_get_current_line())
 end)
 
+-- scrollbind をトグル
+k("n","<leader>O",function() -- scrOllbind
+    vim.o.scrollbind = not vim.o.scrollbind
+end)
+
 k("n","<leader>i",'pmq`[mz`qx`zP') -- 入れ換える
 k("n","<leader>f","T/vf/") -- ファイルパスやSKK辞書を編集するため
 k('n','<leader>!',function()

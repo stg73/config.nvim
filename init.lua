@@ -91,7 +91,7 @@ vim.api.nvim_create_user_command("NuHighlight",function()
 end,{})
 
 -- helpを右側にいい感じに出すため
-vim.api.nvim_create_autocmd({"bufread","WinNew"},{
+vim.api.nvim_create_autocmd("BufWinEnter",{
     group = vim.api.nvim_create_augroup("open-help-to-the-right",{}),
     callback = vim.schedule_wrap(function() -- これを挟まないとbuftypeが判断できない
             if vim.bo.buftype == "help" then

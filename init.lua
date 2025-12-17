@@ -132,6 +132,7 @@ s.add({
 do
     local extui = require("vim._extui")
 
+    vim.o.cmdheight = 0
     extui.enable({
         enable = true,
         msg = {
@@ -140,8 +141,26 @@ do
         }
     })
 
+    local group = vim.api.nvim_create_augroup("show-recording-message",{})
+    vim.api.nvim_create_autocmd("RecordingEnter",{
+        group = group,
+        nested = true, -- [[\vrecording \@.]] の表示を出す
+        callback = function()
+            vim.o.cmdheight = 1
+            require("vim._extui.shared").cfg.msg.target = "msg" -- 既定では 1 にすると "cmd" になる
+        end,
+    })
+    vim.api.nvim_create_autocmd("RecordingLeave",{
+        group = group,
+        nested = true, -- extuiにオプションを反映する
+        callback = function()
+            vim.o.cmdheight = 0
+        end,
+    })
+
     -- tOggle
     vim.keymap.set("n","<leader>o",function()
         vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
+        require("vim._extui.shared").cfg.msg.target = "msg"
     end)
 end

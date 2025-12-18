@@ -1,4 +1,4 @@
-local escape_tmode = vim.api.nvim_replace_termcodes("<c-\\><c-n>",true,false,true)
+local escape_tmode = vim.keycode("<c-\\><c-n>")
 
 vim.api.nvim_create_user_command("T",
 function(opts)

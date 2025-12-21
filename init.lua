@@ -163,4 +163,14 @@ do
         vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
         require("vim._extui.shared").cfg.msg.target = "msg"
     end)
+
+    -- extuiのblendをset_hlできるようにする
+    vim.api.nvim_create_autocmd("Filetype",{
+        group = group,
+        pattern = {"msg","pager"},
+        callback = function()
+            vim.wo.winblend = 1
+        end,
+    })
+
 end

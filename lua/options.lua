@@ -24,6 +24,7 @@ o.shiftwidth = 4
 o.matchpairs:append({ "<:>", "「:」", "『:』", "【:】" })
 o.number = true
 
+o.pumblend = 1
 o.statusline = "─"
 o.fillchars = { eob = " ", stl = "─", stlnc = "─", vert = "│" }
 o.numberwidth = 1 -- ファイルの内容をできるだけ多く表示する

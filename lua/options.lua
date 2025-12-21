@@ -13,7 +13,6 @@ o.fileencodings = {
     "ansi"
 }
 o.fileencoding = "utf-8"
--- o.fileformats = { "dos", "unix", "mac" }
 
 -- 文字
 o.autoindent = true

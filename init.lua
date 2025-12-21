@@ -36,13 +36,9 @@ vim.g.gitcommit_prefix = { "feat", "fix", "change", "docs", "improve", "refactor
 
 -- autocmdを楽に作る
 local group = vim.api.nvim_create_augroup('init',{})
-local function create_autocmd(event,opts)
-    vim.api.nvim_create_autocmd(event,vim.tbl_extend('force',{
-        group = group
-    },opts))
-end
 
-create_autocmd({"bufenter","termopen"},{ -- オプションを強制する
+vim.api.nvim_create_autocmd({"bufenter","termopen"},{ -- オプションを強制する
+    group = group,
     callback = function()
         vim.opt.number = true
     end
@@ -78,17 +74,6 @@ vim.env.m = vim.env.home .. "/memos" -- Memos
 vim.env.git_editor = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
 
 vim.api.nvim_create_user_command("S",[[silent SkkAnnotate | SkkSort | write | execute "normal \<c-w>T"]],{bar = true}) -- 注釈を追加 ソート コミット
-
-vim.api.nvim_create_user_command("NuHighlight",function()
-    local w0 = vim.fn.line("w0")
-    local pos = vim.api.nvim_win_get_cursor(0)
-
-    vim.cmd.terminal("open % | nu-highlight")
-
-    vim.fn.feedkeys(w0 .. "Gzt","n")
-    vim.print(pos)
-    vim.schedule_wrap(function() vim.api.nvim_win_set_cursor(0,pos) end)
-end,{})
 
 -- helpを右側にいい感じに出すため
 vim.api.nvim_create_autocmd("BufWinEnter",{
@@ -165,7 +150,7 @@ do
     end)
 
     -- extuiのblendをset_hlできるようにする
-    vim.api.nvim_create_autocmd("Filetype",{
+    vim.api.nvim_create_autocmd("FileType",{
         group = group,
         pattern = {"msg","pager"},
         callback = function()

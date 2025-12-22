@@ -38,7 +38,10 @@ k('i','<leader>n','<esc>') k('t','<leader>n','<c-\\><c-n>') k('c','<leader>n','<
 k('n','<leader>n','a<cr><esc><c-\\><c-n>') -- 上にだいたい同じ
 k('v','<leader>l','"qy:lua <c-r>"<cr>j') k('n','<leader>l','vv<leader>l',{remap = true}) -- Lua バッファの文字列をluaとして実行する
 k('v','<leader>s','"qy:%s/\\V<c-r>"') k('n','<leader>s',[["qyiw:%s/\V\<<c-r>"\>]]) k('n','<leader>S',[["qyiw:'<,'>s/\V\<<c-r>"\>]]) -- Substitute
-k('n','<leader>b','<cmd>ls<cr>') -- Bufferを一覧で見る 一覧を見る邪魔にならないようコマンドを省略
+k('n','<leader>b',function() -- "<cmd>ls<cr>" だと上部に空行ができてしまう
+    local buf_list = vim.api.nvim_exec2("ls",{ output = true }).output
+    vim.api.nvim_echo({{buf_list}},false,{})
+end) -- Bufferを一覧で見る 一覧を見る邪魔にならないようコマンドを省略
 k('n','<leader>B',':ls<cr>:b ') -- Bufferを一覧で見て開く
 k('v','<leader>e','"qy<c-w>wpa<cr><c-\\><c-n>G<c-w>p') k('n','<leader>e','vv<leader>e',{remap = true}) -- Execute 次のウィンドウのターミナルで実行する
 k('c','<leader>e','<c-f>"qyy<c-w>cpA<cr><c-\\><c-n>G',{silent = true}) -- Execute コマンドラインモードからカレントバッファのterminalでコマンドを実行

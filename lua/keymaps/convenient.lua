@@ -9,6 +9,7 @@ k("n","<c-w>N","<cmd>botright split | enew | set bufhidden=delete<cr>")
 local search = function(str)
     return vim.system({"nu","--commands","start https://google.com/search?q=" .. str})
 end
+
 k("v","gs",function()
     local v_range = table.concat(vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = vim.fn.mode() }),"")
     search(v_range)
@@ -32,7 +33,7 @@ k("n","<leader>f","T/vf/") -- ファイルパスやSKK辞書を編集するた�
 k('n','<leader>!',function()
     local cmd = vim.fn.getreg(":")
     local bang_cmd = r.gsub("!")("(^/a+)@<=( |$)@=")(cmd)
-    return ":" .. bang_cmd .. "\n" -- 直接コマンドを実行するとエラーメッセージが派手なので
+    return ":" .. bang_cmd .. "\n" -- 直接コマンドを実行するとエラーメッセージが派手
 end,{ expr = true }) -- 前回実行したコマンドを強制実行する
 k('i','<leader>n','<esc>') k('t','<leader>n','<c-\\><c-n>') k('c','<leader>n','<cr>')
 k('n','<leader>n','a<cr><esc><c-\\><c-n>') -- 上にだいたい同じ
@@ -41,11 +42,12 @@ k('v','<leader>s','"qy:%s/\\V<c-r>"') k('n','<leader>s',[["qyiw:%s/\V\<<c-r>"\>]
 k('n','<leader>b',function() -- "<cmd>ls<cr>" だと上部に空行ができてしまう
     local buf_list = vim.api.nvim_exec2("ls",{ output = true }).output
     vim.api.nvim_echo({{buf_list}},false,{})
-end) -- Bufferを一覧で見る 一覧を見る邪魔にならないようコマンドを省略
+end) -- Bufferを一覧で見る
 k('n','<leader>B',':ls<cr>:b ') -- Bufferを一覧で見て開く
 k('v','<leader>e','"qy<c-w>wpa<cr><c-\\><c-n>G<c-w>p') k('n','<leader>e','vv<leader>e',{remap = true}) -- Execute 次のウィンドウのターミナルで実行する
 k('c','<leader>e','<c-f>"qyy<c-w>cpA<cr><c-\\><c-n>G',{silent = true}) -- Execute コマンドラインモードからカレントバッファのterminalでコマンドを実行
 k("n","<leader>I","<cmd>Inspect<cr>") -- Inspect
+-- cmwin 用マッピング
 vim.api.nvim_create_autocmd('cmdwinenter',{
     group = vim.api.nvim_create_augroup("my-cmdwin",{}),
     callback = function()

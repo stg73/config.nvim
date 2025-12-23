@@ -35,7 +35,6 @@ tbl.map(function(plugin) vim.g["loaded_" .. plugin] = 1 end)({
 -- シンタクスハイライト
 vim.g.gitcommit_prefix = { "feat", "fix", "change", "docs", "improve", "refactor", "revert", "style", "update", }
 
--- autocmdを楽に作る
 local group = vim.api.nvim_create_augroup('init',{})
 
 vim.api.nvim_create_autocmd({"bufenter","termopen"},{ -- オプションを強制する
@@ -45,6 +44,7 @@ vim.api.nvim_create_autocmd({"bufenter","termopen"},{ -- オプションを強�
     end
 })
 
+-- 起動時にterminalを開く
 vim.api.nvim_create_autocmd('vimenter',{
     group = vim.api.nvim_create_augroup("open-terminal-when-vimenter",{}),
     nested = true, -- terminal自動コマンド用
@@ -62,7 +62,7 @@ vim.env.git_editor = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
 
 vim.api.nvim_create_user_command("S",[[silent SkkAnnotate | SkkSort | write | execute "normal \<c-w>T"]],{bar = true}) -- 注釈を追加 ソート コミット
 
--- helpを右側にいい感じに出すため
+-- helpを右側にいい感じに出す
 vim.api.nvim_create_autocmd("BufWinEnter",{
     group = vim.api.nvim_create_augroup("open-help-to-the-right",{}),
     callback = vim.schedule_wrap(function() -- これを挟まないとbuftypeが判断できない

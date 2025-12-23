@@ -1,6 +1,7 @@
 require("commands.others")
 require("commands.terminal")
 
+-- 文字をまとめて置換
 local s = require("substitute_command")
 local c = require("character_table")
 
@@ -17,11 +18,13 @@ s.create_reverse("Itijuusenn")(c.Itijuusenn_Nijuusenn)
 s.create("Kadomaru")(c.Kadokaku_Kadomaru)
 s.create_reverse("Kadokaku")(c.Kadokaku_Kadomaru)
 
+-- SKK辞書を編集する
 local k = require("skk").command
 
 vim.api.nvim_create_user_command("SkkSort", k.sort,
 {bar = true,range = true})
 
+-- 最重要
 vim.api.nvim_create_user_command("SkkAnnotate", k.annotate,
 {bar = true,range = "%"})
 
@@ -34,6 +37,8 @@ vim.api.nvim_create_user_command("SkkSearchAnnotationErrors", k.search_annotatio
 vim.api.nvim_create_user_command("SkkSearchMidasiKouho", k.search_midasi_kouho,
 {bar = true})
 
+-- 指定した範囲に対し複数のコマンドを実行
+-- Pipe の後に書いたコマンド中の "%" がPipeの範囲に置換される
 vim.api.nvim_create_user_command("Pipe",function(x)
     vim.cmd(require("regex").gsub(x.line1 .. "," .. x.line2)("/%")(x.args))
 end,

@@ -3,7 +3,7 @@ neovimのバージョンは0.12.0
 
 ディレクトリ構造
 ├── lua/
-│   ├── commands/ -- Vimコマンド
+│   ├── commands/ -- Exコマンド
 │   │   ├─── init.lua -- いろいろ
 │   │   ├─── others.lua
 │   │   ╰─── terminal.lua -- ターミナルバッファで使うもの

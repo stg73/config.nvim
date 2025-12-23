@@ -27,11 +27,13 @@ P.load_table({
     },
     ["nvimdoc-ja"] = {
         lazy = { event = "CmdLineEnter" },
+        -- nvimdoc-ja は翻訳が足りていないので、vim版も使う。
+        -- neovim版が見つからない時にvim版を使うように、runtimepath の順を [nvimdoc-ja,vimdoc-ja] にする。
         config = function()
             P.load("vimdoc-ja")
         end
     },
-    ["jumpcursor.vim"] = {
+    ["jumpcursor.vim"] = { -- 今は jump_cursor.nvim を使っている
         lazy = { nmap = "<Plug>(jumpcursor-jump)" },
         setup = function()
             vim.keymap.set('n','<leader>J','<Plug>(jumpcursor-jump)')

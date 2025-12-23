@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd("CmdLineEnter",{
         end
     end,
 })
-
+-- コマンドラインを出たらリセットする
 vim.api.nvim_create_autocmd("CmdLineLeave",{
     group = group,
     pattern = {"/","?"},

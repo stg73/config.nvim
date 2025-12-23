@@ -1,4 +1,5 @@
 local k = vim.keymap.set
+
 -- 文字を楽に入力 キーボードでやるべきことなので 40%キーボードにしたらなくすかもしれない
 k({"n","i","v","c","t","o"},"<leader>",'') -- 以下を不自由なく使うために必要
 k({"n","i","v","c","t","o"},"<leader><esc>",'') -- 以下を不自由なく使うために必要
@@ -21,7 +22,7 @@ k({"i","v","t","o"},"\t","<cmd>set noexpandtab<cr><cmd>set shiftwidth=8<cr>\t<cm
 k("i","<leader>r","<cr>") -- Return
 k({"i","t","c"},"<c-q>","'") -- Quote scheme用
 
--- nuMber キーボードのホーム行の順番
+-- nuMber 大西配列のホーム行の順番
 k({"n","i","v","c","t","o"},"<leader>me","0")
 k({"n","i","v","c","t","o"},"<leader>mi","1")
 k({"n","i","v","c","t","o"},"<leader>ma","2")

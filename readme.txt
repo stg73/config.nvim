@@ -16,6 +16,7 @@ neovimのバージョンは0.12.0
 │   │   ├─── init.lua
 │   │   ╰─── keyboard.lua
 │   │
+│   ├── env.lua -- 環境変数
 │   ├── highlights.lua -- set_hl
 │   ├── options.lua -- オプション
 │   ╰── packages.lua -- プラグインの読み込みと設定

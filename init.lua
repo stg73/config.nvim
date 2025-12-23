@@ -21,6 +21,7 @@ require("commands")
 require("keymaps")
 require("highlights")
 require("options")
+require("env")
 
 -- プラグイン
 vim.keymap.set({"o","n","v"},"<leader>j",require("select_position").opt().set_cursor)
@@ -55,20 +56,6 @@ vim.api.nvim_create_autocmd('vimenter',{
         end
     end
 })
-
--- 環境変数
-
--- 便利なもの
-vim.env.i = vim.env.myvimrc -- Init.lua
-vim.env.n = regex.gsub"//""\\"(vim.fs.dirname(vim.env.i)) -- Init.lua
-vim.env.c = vim.env.xdg_config_home -- Config
-vim.env.w = vim.env.works -- Works
-vim.env.f = vim.env.forks -- Forks
-vim.env.s = vim.env.appdata .. '/CorvusSKK' -- corvusSkk
-vim.env.d = vim.env.works .. "/dictionaries.skk" -- skk-Dictionary
-vim.env.l = vim.env.works .. "/modules.nvim/lua" -- Lua-modules
-vim.env.t = vim.env.home .. "/test" -- Test
-vim.env.m = vim.env.home .. "/memos" -- Memos
 
 -- neovimの中で起動した場合はgitのエディタとしてnvrを使う
 vim.env.git_editor = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'

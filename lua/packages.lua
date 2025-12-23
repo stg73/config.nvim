@@ -70,7 +70,10 @@ P.load_table({
             require("tokyonight").load({
                 terminal_colors = false,
                 transparent = true,
-                style = "night"
+                style = "night",
+                styles = {
+                    keywords = { italic = false },
+                },
             })
         end,
     },

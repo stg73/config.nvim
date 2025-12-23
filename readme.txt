@@ -24,6 +24,7 @@ neovimのバージョンは0.12.0
 │   ├── css.lua
 │   ├── gitcommit.lua -- 接頭辞に対応
 │   ├── html.lua
+│   ├── nu.lua
 │   ├── ps1.lua
 │   ├── text.lua
 │   ╰── xml.lua

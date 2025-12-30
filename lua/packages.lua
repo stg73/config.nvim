@@ -1,14 +1,16 @@
 local P = require("package_manager").directory(vim.env.home .. "/test/package")
 
--- P.install_table({
---     { repo = "skanehira/jumpcursor.vim", desc = "いい感じにカーソルを動かす" },
---     { repo = "vim-jp/vimdoc-ja", desc = "日本語ヘルプ" },
---     { repo = "vim-jp/nvimdoc-ja", desc = "日本語ヘルプ" },
---     { repo = "subnut/nvim-ghost.nvim", desc = "neovimをブラウザでの入力に使う" },
---     { repo = "tpope/vim-surround" },
---     { repo = "folke/tokyonight.nvim", desc = "カラースキーム" },
---     { repo = "rktjmp/hotpot.nvim", desc = "Fennel" },
--- })
+local packages = {
+    { repo = "skanehira/jumpcursor.vim", desc = "いい感じにカーソルを動かす" },
+    { repo = "vim-jp/vimdoc-ja", desc = "日本語ヘルプ" },
+    { repo = "vim-jp/nvimdoc-ja", desc = "日本語ヘルプ" },
+    { repo = "subnut/nvim-ghost.nvim", desc = "neovimをブラウザでの入力に使う" },
+    { repo = "tpope/vim-surround" },
+    { repo = "folke/tokyonight.nvim", desc = "カラースキーム" },
+    { repo = "rktjmp/hotpot.nvim", desc = "Fennel" },
+}
+
+-- P.install_table(packages)
 
 P.load_table({
     ["hotpot.nvim"] = {

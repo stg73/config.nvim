@@ -155,4 +155,24 @@ do
         end,
     })
 
+-- neovimのコマンドラインをシェルのコマンドラインとして使う
+local escape_tmode = vim.keycode("<c-\\><c-n>")
+function enter_shell_cmdline(opts)
+    opts = opts or {}
+    opts.timeout = opts.timeout or 160
+    opts.filetype = opts.filetype or "nu"
+
+    vim.bo[require("vim._extui.shared").bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
+    vim.ui.input({
+        prompt = ":",
+        completion = "shellcmdline",
+    },function(input)
+        if input then
+            vim.fn.feedkeys("a" .. input .. "\r" .. escape_tmode,"n")
+            vim.defer_fn(function()
+                enter_shell_cmdline(opts)
+                vim.fn.feedkeys("G","n")
+            end,opts.timeout)
+        end
+    end)
 end

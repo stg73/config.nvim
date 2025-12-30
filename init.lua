@@ -101,6 +101,16 @@ s.add({
     gh = require("open_github").open,
 })
 
+local group = vim.api.nvim_create_augroup("filetype-settings",{})
+vim.api.nvim_create_autocmd("FileType",{
+    pattern = "help",
+    group = group,
+    callback = function()
+        -- vim.bo.iskeyword = vim.filetype.get_option("lua","iskeyword")
+        require"syntax".syntax "error" { match = "%>78v.*." }
+    end,
+})
+
 do
     local extui = require("vim._extui")
 

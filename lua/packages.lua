@@ -7,9 +7,15 @@ local P = require("package_manager").directory(vim.env.home .. "/test/package")
 --     { repo = "subnut/nvim-ghost.nvim", desc = "neovimをブラウザでの入力に使う" },
 --     { repo = "tpope/vim-surround" },
 --     { repo = "folke/tokyonight.nvim", desc = "カラースキーム" },
+--     { repo = "rktjmp/hotpot.nvim", desc = "Fennel" },
 -- })
 
 P.load_table({
+    ["hotpot.nvim"] = {
+        lazy = {
+            command = "Fnl"
+        }
+    },
     ["nvim-ghost.nvim"] = {
         config = function()
             -- jugem.jpのリッチテキストエディタの場合に上手くいかない

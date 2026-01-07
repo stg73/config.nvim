@@ -15,6 +15,8 @@ char = require("character_table")
 vim.keymap.get = require("get_keymap").get
 
 vim.g.mapleader = "-"
+vim.keymap.set({"n","i","v","c","t","o"},"<leader><leader>","<leader>")
+vim.keymap.set({"n","i","v","c","t","o"},"<leader><esc>","")
 
 pkg = require("packages")
 require("commands")

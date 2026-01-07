@@ -5,7 +5,6 @@ set("i","<leader>r","<cr>") -- Return
 set({"i","t","c"},"<c-q>","'") -- Quote scheme用
 
 local keys = {
-    ["<esc>"] = '', -- 以下を不自由なく使うために必要
     i = "#", -- Igeta 井桁
     p = "%", -- Percent sign
     k = "*", -- asterisK
@@ -16,7 +15,6 @@ local keys = {
     v = "|", -- Vertical bar
     x = "!", -- EXclamation mark
     q = "?", -- Question mark
-    ["-"] = "-", -- -
     h = "/", -- slasH
     b = "\\", -- Back slash
     u = "_", -- Under bar

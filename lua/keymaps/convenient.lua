@@ -7,7 +7,7 @@ k("n","<c-w>N","<cmd>botright split | enew | set bufhidden=delete<cr>")
 
 -- 検索系
 local search = function(str)
-    return vim.system({"nu","--commands","start https://google.com/search?q=" .. str})
+    return vim.system({"nu","--commands","start 'https://google.com/search?q=" .. str .. "'"})
 end
 
 k("v","gs",function()

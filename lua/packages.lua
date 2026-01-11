@@ -1,3 +1,5 @@
+local M = {}
+
 local P = require("package_manager").directory(vim.env.home .. "/test/package")
 
 local packages = {
@@ -12,7 +14,7 @@ local packages = {
 
 -- P.install_table(packages)
 
-P.load_table({
+local load = {
     ["hotpot.nvim"] = {
         lazy = {
             command = "Fnl"
@@ -86,7 +88,13 @@ P.load_table({
                 },
             })
         end,
-    },
-})
+    }
+}
 
-return P
+function M.setup()
+    P.load_table(load)
+end
+
+M.module = P
+
+return M

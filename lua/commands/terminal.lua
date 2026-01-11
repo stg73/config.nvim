@@ -1,3 +1,6 @@
+local M = {}
+
+function M.setup()
 local escape_tmode = vim.keycode("<c-\\><c-n>")
 
 -- neovimのコマンドラインをシェルのコマンドラインのように使う
@@ -10,3 +13,6 @@ function(opts)
     end) -- 実行を待つ
 end,
 {nargs = '?'})
+end
+
+return M

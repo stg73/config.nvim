@@ -1,5 +1,8 @@
+local M = {}
+
 local o = vim.opt
 
+function M.setup()
 -- 無効化
 o.mouse = ""
 o.swapfile = false
@@ -46,3 +49,6 @@ o.gdefault = true -- 既定で行のすべてを置換する
 
 o.timeout = false -- キーマップを楽に使う
 o.ttimeout = false -- powershellでエスケープを長押ししたときにエスケープがプロンプトに入力されないようになる
+end
+
+return M

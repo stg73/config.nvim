@@ -18,12 +18,13 @@ vim.g.mapleader = "-"
 vim.keymap.set({"n","i","v","c","t","o"},"<leader><leader>","<leader>")
 vim.keymap.set({"n","i","v","c","t","o"},"<leader><esc>","")
 
-pkg = require("packages")
-require("commands")
-require("keymaps")
-require("highlights")
-require("options")
-require("env")
+pkg = require("packages").module
+require("packages").setup()
+require("commands").setup()
+require("keymaps").setup()
+require("highlights").setup()
+require("options").setup()
+require("env").setup()
 
 -- プラグイン
 vim.keymap.set({"o","n","v"},"<leader>j",require("select_position").opt().set_cursor)

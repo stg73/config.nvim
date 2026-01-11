@@ -1,5 +1,8 @@
-require("commands.others")
-require("commands.terminal")
+local M = {}
+
+function M.setup()
+require("commands.others").setup()
+require("commands.terminal").setup()
 
 -- 文字をまとめて置換
 local s = require("substitute_command")
@@ -43,3 +46,6 @@ vim.api.nvim_create_user_command("Pipe",function(x)
     vim.cmd(require("regex").gsub(x.line1 .. "," .. x.line2)("/%")(x.args))
 end,
 {range = true,nargs = 1,complete = "command"})
+end
+
+return M

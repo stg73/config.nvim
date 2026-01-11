@@ -8,11 +8,6 @@ function M.bracket(b_start,b_end)
     set({"i","c","t"},"<leader>" .. b_start,b_start)
 end
 
-require("keymaps.char")
-require("keymaps.keyboard")
-require("keymaps.convenient")
-require("keymaps.hoge")
-
 -- 閉括弧の自動入力
 local brackets = {
     {"{","}"},
@@ -24,11 +19,18 @@ local brackets = {
     {"【","】"},
 }
 
-vim.tbl_map(function(t)
-    M.bracket(t[1],t[2])
-end,brackets)
+function M.setup()
+    require("keymaps.char").setup()
+    require("keymaps.keyboard").setup()
+    require("keymaps.convenient").setup()
+    require("keymaps.hoge").setup()
 
-set('i','<c-b>','()<c-g>U<left>') set({'c','t'},'<c-b>','()<left>') -- Bracket
-set('i','<c-d>','""<c-g>U<left>') set({'c','t'},'<c-d>','"<left>"') -- Double quote
+    vim.tbl_map(function(t)
+        M.bracket(t[1],t[2])
+    end,brackets)
+
+    set('i','<c-b>','()<c-g>U<left>') set({'c','t'},'<c-b>','()<left>') -- Bracket
+    set('i','<c-d>','""<c-g>U<left>') set({'c','t'},'<c-d>','"<left>"') -- Double quote
+end
 
 return M

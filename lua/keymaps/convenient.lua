@@ -1,6 +1,9 @@
+local M = {}
+
 local k = vim.keymap.set
 local r = require("regex")
 
+function M.setup()
 -- <c-w>の拡張
 k("n","<c-w>T","<cmd>split | buffer term:<cr>") -- 楽にterminal bufferを使う
 k("n","<c-w>N","<cmd>botright split | enew | set bufhidden=delete<cr>")
@@ -83,3 +86,6 @@ k('n','<leader>r',function()
     end)
 end,{ desc = "edit register" })
 k("n","<leader>r<esc>","") -- vim.opt.showcmd = true においていい感じに表示するため
+end
+
+return M

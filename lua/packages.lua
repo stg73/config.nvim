@@ -44,7 +44,11 @@ local load = {
         end
     },
     ["jumpcursor.vim"] = { -- 今は jump_cursor.nvim を使っている
-        lazy = { nmap = "<Plug>(jumpcursor-jump)" },
+        lazy = {
+            keys = {
+                { "n", "<Plug>(jumpcursor-jump)" }
+            }
+        },
         setup = function()
             vim.keymap.set('n','<leader>J','<Plug>(jumpcursor-jump)')
         end,

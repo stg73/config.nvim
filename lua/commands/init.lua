@@ -2,7 +2,6 @@ local M = {}
 
 function M.setup()
 require("commands.others").setup()
-require("commands.terminal").setup()
 
 -- 文字をまとめて置換
 local s = require("substitute_command")

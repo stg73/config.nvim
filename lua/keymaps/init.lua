@@ -21,7 +21,6 @@ local brackets = {
 
 function M.setup()
     require("keymaps.char").setup()
-    require("keymaps.keyboard").setup()
     require("keymaps.convenient").setup()
     require("keymaps.hoge").setup()
 

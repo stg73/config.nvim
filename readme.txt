@@ -5,16 +5,13 @@ neovimのバージョンは0.12.0
 ├── lua/
 │   ├── commands/ -- Exコマンド
 │   │   ├─── init.lua -- いろいろ
-│   │   ├─── others.lua
-│   │   ╰─── terminal.lua -- ターミナルバッファで使うもの
+│   │   ╰─── others.lua
 │   │
 │   ├── keymaps/ -- キーマップ
-│   │   ├─── bracket.lua -- 閉括弧の自動入力のようなもの
 │   │   ├─── char.lua -- 本来キーボードでやるべきこと
 │   │   ├─── convenient.lua -- 便利なもの
 │   │   ├─── hoge.lua -- 名前を思い付かなかった
-│   │   ├─── init.lua
-│   │   ╰─── keyboard.lua
+│   │   ╰─── init.lua
 │   │
 │   ├── env.lua -- 環境変数
 │   ├── highlights.lua -- set_hl

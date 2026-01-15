@@ -10,13 +10,13 @@ end
 
 -- 閉括弧の自動入力
 local brackets = {
-    {"{","}"},
-    {"[","]"},
-    {"<",">"},
+    "{}",
+    "[]",
+    "<>",
     -- 日本語
-    {"「","」"},
-    {"『","』"},
-    {"【","】"},
+    "「」",
+    "『』",
+    "【】",
 }
 
 function M.setup()
@@ -24,8 +24,9 @@ function M.setup()
     require("keymaps.convenient").setup()
     require("keymaps.hoge").setup()
 
-    vim.tbl_map(function(t)
-        M.bracket(t[1],t[2])
+    vim.tbl_map(function(str)
+        local s,e = require("regex").find(".")(str)
+        M.bracket(string.sub(str,s,e),string.sub(str,e + 1))
     end,brackets)
 
     set('i','<c-b>','()<c-g>U<left>') set({'c','t'},'<c-b>','()<left>') -- Bracket

@@ -44,7 +44,6 @@ o.shellslash = true -- スラッシュのほうが扱いやすい
 
 -- 検索・置換
 o.wrapscan = false -- 終わりを知りたい
-o.magic = false -- 正規表現が使いたきゃ\vを使うから邪魔なだけ
 o.gdefault = true -- 既定で行のすべてを置換する
 
 o.timeout = false -- キーマップを楽に使う

@@ -39,7 +39,7 @@ local load = {
         lazy = { event = "CmdLineEnter" },
         -- nvimdoc-ja は翻訳が足りていないので、vim版も使う。
         -- neovim版が見つからない時にvim版を使うように、runtimepath の順を [nvimdoc-ja,vimdoc-ja] にする。
-        config = function()
+        hook_post = function()
             P.load("vimdoc-ja")
         end
     },
@@ -55,7 +55,7 @@ local load = {
     },
     ["vim-surround"] = {
         lazy = { event = "CmdLineEnter" },
-        config = function()
+        hook_post = function()
             local s = require("tbl").curry3(vim.keymap.set)("n")
             local nop = require("tbl").flip(s)("")
             s 'sd' '<Plug>Dsurround'   nop 'sd<esc>'
@@ -82,7 +82,7 @@ local load = {
         end,
     },
     ["tokyonight.nvim"] = {
-        config = function()
+        hook_post = function()
             require("tokyonight").load({
                 terminal_colors = false,
                 transparent = true,

@@ -5,7 +5,8 @@ neovimのバージョンは0.12.0
 ├── lua/
 │   ├── commands/ -- Exコマンド
 │   │   ├─── init.lua -- いろいろ
-│   │   ╰─── others.lua
+│   │   ├─── others.lua
+│   │   ╰─── vimdoc.lua -- vimdoc の編集用
 │   │
 │   ├── keymaps/ -- キーマップ
 │   │   ├─── char.lua -- 本来キーボードでやるべきこと

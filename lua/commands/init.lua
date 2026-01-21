@@ -3,6 +3,10 @@ local M = {}
 function M.setup()
 require("commands.others").setup()
 
+local vimdoc = require("commands.vimdoc")
+vim.api.nvim_create_user_command("VimdocGrepHighlightErrors",vimdoc.grep_highlight_errors,{})
+vim.api.nvim_create_user_command("VimdocEditOriginal",vimdoc.edit_original,{})
+
 -- 文字をまとめて置換
 local s = require("substitute_command")
 local c = require("character_table")

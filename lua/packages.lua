@@ -6,7 +6,6 @@ local packages = {
     { repo = "skanehira/jumpcursor.vim", desc = "いい感じにカーソルを動かす" },
     { repo = "vim-jp/vimdoc-ja", desc = "日本語ヘルプ" },
     { repo = "vim-jp/nvimdoc-ja", desc = "日本語ヘルプ" },
-    { repo = "subnut/nvim-ghost.nvim", desc = "neovimをブラウザでの入力に使う" },
     { repo = "tpope/vim-surround" },
     { repo = "folke/tokyonight.nvim", desc = "カラースキーム" },
     { repo = "rktjmp/hotpot.nvim", desc = "Fennel" },
@@ -19,21 +18,6 @@ local load = {
         lazy = {
             command = "Fnl"
         }
-    },
-    ["nvim-ghost.nvim"] = {
-        config = function()
-            -- jugem.jpのリッチテキストエディタの場合に上手くいかない
-            vim.api.nvim_create_autocmd('user',{
-                group = vim.api.nvim_create_augroup('nvim_ghost_user_autocommands',{}),
-                callback = function(x)
-                    local nazo_baffa = x.buf + 1 -- 謎に作られるバッファ
-                    if vim.api.nvim_buf_is_valid(nazo_baffa) then -- 起動時にもトリガーされるのでその場合は実行しないように
-                        vim.cmd.bwipeout(nazo_baffa) -- 邪魔なので削除
-                        vim.cmd.tabonly() -- tabpageは好みじゃないので削除
-                    end
-                end,
-            })
-        end,
     },
     ["nvimdoc-ja"] = {
         lazy = { event = "CmdLineEnter" },

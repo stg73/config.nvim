@@ -51,4 +51,18 @@ end,
 {range = true,nargs = 1,complete = "command"})
 end
 
+vim.api.nvim_create_user_command("DelCach",function(x)
+    local mod = x.fargs[1]
+    local var = x.fargs[2]
+    package.loaded[mod] = nil
+    if var then
+        _G[var] = require(mod)
+    end
+end,{
+    nargs = "*",
+    complete = function()
+        return vim.fn.sort(vim.tbl_keys(package.loaded))
+    end,
+})
+
 return M

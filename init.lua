@@ -264,3 +264,35 @@ for name,fn in pairs(vim.api) do
     table.insert(parsed,fn)
     set_table(nvim,parsed)
 end
+
+-- Nvimのアドレスのリストをファイルに保存する
+-- nvim --serverlist の代わり
+-- これを利用するもの: https://github.com/stg73/config.nu/blob/main/neovim-remote.nu
+local function update_addresses(file) return function(add_or_remove)
+    local f = io.open(file,"r")
+    local content = vim.split(f:read("a") or "","\n",{ trimempty = true })
+    f:close()
+    local new_content = tbl.filter(function(server) return server ~= vim.v.servername end)(content)
+    if add_or_remove then
+        table.insert(new_content,vim.v.servername)
+    end
+    local f = io.open(file,"w")
+    f:write(table.concat(new_content,"\n"))
+    f:close()
+end end
+
+local update = update_addresses(vim.env.HOME .. "/nvim_addresses")
+local group = vim.api.nvim_create_augroup("manage_nvim_addresses",{})
+vim.api.nvim_create_autocmd({"VimEnter","FocusGained"},{
+    group = group,
+    callback = function()
+        update(true)
+    end,
+})
+
+vim.api.nvim_create_autocmd("VimLeave",{
+    group = group,
+    callback = function()
+        update(false)
+    end,
+})

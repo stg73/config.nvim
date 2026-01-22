@@ -49,7 +49,6 @@ vim.api.nvim_create_user_command("Pipe",function(x)
     vim.cmd(require("regex").gsub(x.line1 .. "," .. x.line2)("/%")(x.args))
 end,
 {range = true,nargs = 1,complete = "command"})
-end
 
 vim.api.nvim_create_user_command("DelCach",function(x)
     local mod = x.fargs[1]
@@ -64,5 +63,6 @@ end,{
         return vim.fn.sort(vim.tbl_keys(package.loaded))
     end,
 })
+end
 
 return M

@@ -33,8 +33,8 @@ vim.keymap.set({"o","n","v"},"<leader>j",require("select_position").opt().set_cu
 vim.keymap.set({"o","n","v"},"<leader><leader>",require("select_position").opt({ character = "/s" }).set_cursor)
 
 -- デフォルトプラグインを無効化
-tbl.map(function(plugin) vim.g["loaded_" .. plugin] = 1 end)({
-    "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers"
+tbl.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
+    "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", "gzip", "zipPlugin", "tutor_mode_plugin", "tarPlugin"
 })
 
 -- シンタクスハイライト
@@ -153,7 +153,7 @@ do
 
     -- extuiのblendをset_hlできるようにする
     vim.api.nvim_create_autocmd("FileType",{
-        group = group,
+        group = vim.api.nvim_create_augroup("winblend",{}),
         pattern = {"msg","pager"},
         callback = function()
             vim.wo.winblend = 1

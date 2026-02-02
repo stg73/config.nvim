@@ -38,7 +38,7 @@ tbl.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
 })
 
 -- シンタクスハイライト
-vim.g.gitcommit_prefix = { "feat", "fix", "docs", "improve", "refactor", "style", "update", }
+vim.g.gitcommit_prefix = { "feat", "fix", "docs", "improve", "refactor", "style", "update", "init", }
 
 local group = vim.api.nvim_create_augroup('init',{})
 

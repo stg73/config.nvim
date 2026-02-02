@@ -4,7 +4,7 @@ syntax keyword cssMediaProp prefers-color-scheme
 syn keyword cssTextProp contained text-underline-offset color-scheme scroll-margin-top
 ]])
 
-local l = require("highlight").link
+local l = require("highlights").link
 
 l "cssBraces" "@punctuation.bracket"
 l "cssTagName" "special"

@@ -2,10 +2,10 @@ vim.loader.enable(true) -- よく分からない
 
 -- ローカルのプラグイン読み込み
 vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. name .. ".nvim") end,{
-    "modules", "jump_cursor", "syntax", "ghost_text",
+    "modules", "jump_cursor", "syntax", "ghosttext", "socket",
 })
 
-require("ghost_text").setup()
+require("ghosttext").start()
 
 regex = require("regex")
 tbl = require("tbl")

@@ -7,6 +7,10 @@ local vimdoc = require("commands.vimdoc")
 vim.api.nvim_create_user_command("VimdocGrepHighlightErrors",vimdoc.grep_highlight_errors,{})
 vim.api.nvim_create_user_command("VimdocEditOriginal",vimdoc.edit_original,{})
 
+local nu = require("commands.nu")
+vim.api.nvim_create_user_command("NuExternCommand",nu.extern_command,{ nargs = "*", range = true })
+vim.api.nvim_create_user_command("NuExternFlag",nu.extern_flag,{ range = true })
+
 -- 文字をまとめて置換
 local s = require("substitute_command")
 local c = require("character_table")

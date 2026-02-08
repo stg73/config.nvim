@@ -46,7 +46,10 @@ k('n','<leader>b',function() -- "<cmd>ls<cr>" だと上部に空行ができて�
     local buf_list = vim.api.nvim_exec2("ls",{ output = true }).output
     vim.api.nvim_echo({{buf_list}},false,{})
 end) -- Bufferを一覧で見る
-k('n','<leader>B',':ls<cr>:b ') -- Bufferを一覧で見て開く
+k('n','<leader>B',function()
+    local buf_list = vim.api.nvim_exec2("ls!",{ output = true }).output
+    vim.api.nvim_echo({{buf_list}},false,{})
+end) -- すべてのBufferを一覧で見る
 k('v','<leader>e','"qy<c-w>wpa<cr><c-\\><c-n>G<c-w>p') k('n','<leader>e','vv<leader>e',{remap = true}) -- Execute 次のウィンドウのターミナルで実行する
 k('c','<leader>e','<c-f>"qyy<c-w>cpA<cr><c-\\><c-n>G',{silent = true}) -- Execute コマンドラインモードからカレントバッファのterminalでコマンドを実行
 k("n","<leader>I","<cmd>Inspect<cr>") -- Inspect

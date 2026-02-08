@@ -5,8 +5,6 @@ vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. na
     "modules", "jump_cursor", "syntax", "ghosttext", "socket",
 })
 
-require("ghosttext").start()
-
 regex = require("regex")
 tbl = require("tbl")
 str = require("string_utils")
@@ -27,6 +25,8 @@ require("keymaps").setup()
 require("highlights").setup()
 require("options").setup()
 require("env").setup()
+
+require("ghosttext").start()
 
 -- プラグイン
 vim.keymap.set({"o","n","v"},"<leader>j",require("select_position").opt().set_cursor)

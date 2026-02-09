@@ -40,7 +40,7 @@ local load = {
     ["vim-surround"] = {
         lazy = { event = "CmdLineEnter" },
         hook_post = function()
-            local s = require("tbl").curry3(vim.keymap.set)("n")
+            local s = require("tbl").curry(3)(vim.keymap.set)("n")
             local nop = require("tbl").flip(s)("")
             s 'sd' '<Plug>Dsurround'   nop 'sd<esc>'
             s 'ss' '<Plug>Yssurround'  nop 'ss<esc>'
@@ -53,7 +53,7 @@ local load = {
             nop "s"
             nop "s<esc>"
 
-            local d = require("tbl").curry2(vim.keymap.del)("n")
+            local d = require("tbl").curry()(vim.keymap.del)("n")
             d 'ds'
             d 'yss'
             d 'ySs'

@@ -1,6 +1,6 @@
 local M = {}
 
-M.set = require("tbl").curry3(vim.api.nvim_set_hl)(0)
+M.set = require("tbl").curry(3)(vim.api.nvim_set_hl)(0)
 M.link = function(hl) return function(link)
     M.set(hl)({ link = link })
 end end

@@ -9,7 +9,6 @@ function M.setup()
     k('n','U','<c-r>') -- 大文字にすると逆になる
     k('v','v','V') -- 2回押下で行を対象とする
     k({'n','v'},'V','<c-v>') -- 非印字文字を使いたくない
-    k('t','<c-n>','<down>') k('t','<c-p>','<up>') -- commandline modeでの補完と同じにする
     k('v','*',[["qy/\V<c-r>=substitute(escape(@q,'\/'),"\n",'\\n','g')<CR><CR>]],{silent = true}) -- ビジュアルモードでも*を使えるように
     k("i","<right>","<c-g>U<right>")
 end

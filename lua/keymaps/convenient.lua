@@ -6,7 +6,6 @@ local r = require("regex")
 function M.setup()
 -- <c-w>の拡張
 k("n","<c-w>T","<cmd>split | buffer term:<cr>") -- 楽にterminal bufferを使う
-k("n","<c-w>N","<cmd>botright split | enew | set bufhidden=delete<cr>")
 
 -- 検索系
 local search = function(str)
@@ -40,7 +39,6 @@ k('n','<leader>!',function()
 end,{ expr = true }) -- 前回実行したコマンドを強制実行する
 k('i','<leader>n','<esc>') k('t','<leader>n','<c-\\><c-n>') k('c','<leader>n','<cr>')
 k('n','<leader>n','a<cr><esc><c-\\><c-n>') -- 上にだいたい同じ
-k('v','<leader>l','"qy:lua <c-r>"<cr>j') k('n','<leader>l','vv<leader>l',{remap = true}) -- Lua バッファの文字列をluaとして実行する
 k('v','<leader>s','"qy:%s/\\V<c-r>"') k('n','<leader>s',[["qyiw:%s/\V\<<c-r>"\>]]) k('n','<leader>S',[["qyiw:'<,'>s/\V\<<c-r>"\>]]) -- Substitute
 k('n','<leader>b',function() -- "<cmd>ls<cr>" だと上部に空行ができてしまう
     local buf_list = vim.api.nvim_exec2("ls",{ output = true }).output
@@ -50,14 +48,11 @@ k('n','<leader>B',function()
     local buf_list = vim.api.nvim_exec2("ls!",{ output = true }).output
     vim.api.nvim_echo({{buf_list}},false,{})
 end) -- すべてのBufferを一覧で見る
-k('v','<leader>e','"qy<c-w>wpa<cr><c-\\><c-n>G<c-w>p') k('n','<leader>e','vv<leader>e',{remap = true}) -- Execute 次のウィンドウのターミナルで実行する
-k('c','<leader>e','<c-f>"qyy<c-w>cpA<cr><c-\\><c-n>G',{silent = true}) -- Execute コマンドラインモードからカレントバッファのterminalでコマンドを実行
 k("n","<leader>I","<cmd>Inspect<cr>") -- Inspect
 -- cmwin 用マッピング
 vim.api.nvim_create_autocmd('cmdwinenter',{
     group = vim.api.nvim_create_augroup("my-cmdwin",{}),
     callback = function()
-        k('v','<leader>e','"qy<c-w>cpA<cr><c-\\><c-n>G',{ buffer = true })
         k('i','<leader>r','<esc>ld$o<c-r>"<esc>I',{ buffer = true })
         k("n","<leader>n","<cr>",{ buffer = true })
     end,

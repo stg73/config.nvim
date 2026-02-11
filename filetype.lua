@@ -33,12 +33,12 @@ vim.api.nvim_create_autocmd('CmdWinEnter',{
     end,
 })
 
--- コマンドライン  extui用
+-- コマンドライン  ui2用
 vim.api.nvim_create_autocmd("CmdLineEnter",{
     group = group,
     pattern = {"/","?"},
     callback = function()
-        local cmdline = require("vim._extui.shared").bufs.cmd
+        local cmdline = require("vim._core.ui2").bufs.cmd
         if regex.is("[//?]")(vim.fn.getcmdtype()) then
             vim.bo[cmdline].syntax = "regex"
         end
@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("CmdLineLeave",{
     group = group,
     pattern = {"/","?"},
     callback = function()
-        local cmdline = require("vim._extui.shared").bufs.cmd
+        local cmdline = require("vim._core.ui2").bufs.cmd
         vim.bo[cmdline].syntax = ""
     end,
 })

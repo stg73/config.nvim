@@ -117,10 +117,10 @@ vim.api.nvim_create_autocmd("FileType",{
 })
 
 do
-    local extui = require("vim._extui")
+    local ui2 = require("vim._core.ui2")
 
     vim.o.cmdheight = 0
-    extui.enable({
+    ui2.enable({
         enable = true,
         msg = {
             target = "msg",
@@ -134,12 +134,12 @@ do
         nested = true, -- [[\vrecording \@.]] の表示を出す
         callback = function()
             vim.o.cmdheight = 1
-            require("vim._extui.shared").cfg.msg.target = "msg" -- 既定では 1 にすると "cmd" になる
+            require("vim._core.ui2").cfg.msg.target = "msg" -- 既定では 1 にすると "cmd" になる
         end,
     })
     vim.api.nvim_create_autocmd("RecordingLeave",{
         group = group,
-        nested = true, -- extuiにオプションを反映する
+        nested = true, -- ui2にオプションを反映する
         callback = function()
             vim.o.cmdheight = 0
         end,
@@ -148,10 +148,10 @@ do
     -- tOggle
     vim.keymap.set("n","<leader>o",function()
         vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
-        require("vim._extui.shared").cfg.msg.target = "msg"
+        require("vim._core.ui2").cfg.msg.target = "msg"
     end)
 
-    -- extuiのblendをset_hlできるようにする
+    -- ui2のblendをset_hlできるようにする
     vim.api.nvim_create_autocmd("FileType",{
         group = vim.api.nvim_create_augroup("winblend",{}),
         pattern = {"msg","pager"},
@@ -186,7 +186,7 @@ function enter_shell_cmdline(opts)
     opts.timeout = opts.timeout or 160
     opts.filetype = opts.filetype or "nu"
 
-    vim.bo[require("vim._extui.shared").bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
+    vim.bo[require("vim._core.ui2").bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
     vim.ui.input({
         prompt = ":",
         completion = "shellcmdline",

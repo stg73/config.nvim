@@ -15,18 +15,23 @@ vim.api.nvim_create_user_command("NuExternFlag",nu.extern_flag,{ range = true })
 local s = require("substitute_command")
 local c = require("character_table")
 
-s.create("Katakana")(c.Hiragana_Katakana)
-s.create_reverse("Hiragana")(c.Hiragana_Katakana)
-s.create("Zennkaku")(c.Hannkaku_Zennkaku)
-s.create_reverse("Hannkaku")(c.Hannkaku_Zennkaku)
-s.create("Dakuonn")(c.Seionn_Dakuonn)
-s.create_reverse("Seionn")(c.Seionn_Dakuonn)
-s.create("Hutosenn")(c.Hososenn_Hutosenn)
-s.create_reverse("Hososenn")(c.Hososenn_Hutosenn)
-s.create("Nijuusenn")(c.Itijuusenn_Nijuusenn)
-s.create_reverse("Itijuusenn")(c.Itijuusenn_Nijuusenn)
-s.create("Kadomaru")(c.Kadokaku_Kadomaru)
-s.create_reverse("Kadokaku")(c.Kadokaku_Kadomaru)
+local tbl = require("tbl")
+tbl.pairs(function(k_v)
+    require("substitute_command").create_command(k_v[1])(k_v[2])
+end)({
+    Katakana = c.Hiragana_Katakana,
+    Hiragana = tbl.pairs(vim.fn.reverse)(c.Hiragana_Katakana),
+    Zennkaku = c.Hannkaku_Zennkaku,
+    Hannkaku = tbl.pairs(vim.fn.reverse)(c.Hannkaku_Zennkaku),
+    Dakuonn = c.Seionn_Dakuonn,
+    Seionn = tbl.pairs(vim.fn.reverse)(c.Seionn_Dakuonn),
+    Hutosenn = c.Hososenn_Hutosenn,
+    Hososenn = tbl.pairs(vim.fn.reverse)(c.Hososenn_Hutosenn),
+    Nijuusenn = c.Itijuusenn_Nijuusenn,
+    Itijuusenn = tbl.pairs(vim.fn.reverse)(c.Itijuusenn_Nijuusenn),
+    Kadomaru = c.Kadokaku_Kadomaru,
+    Kadokaku = tbl.pairs(vim.fn.reverse)(c.Kadokaku_Kadomaru),
+})
 
 -- SKK辞書を編集する
 local k = require("skk").command

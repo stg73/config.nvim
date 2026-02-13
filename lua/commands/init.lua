@@ -62,13 +62,13 @@ end,
 vim.api.nvim_create_user_command("DelCach",function(x)
     local mod = x.fargs[1]
     local var = x.fargs[2]
-    if package.loaded[mod] == nil then
-        vim.notify("そんな物はない",vim.log.levels.WARN)
-        return
-    end
     package.loaded[mod] = nil
     if var then
         _G[var] = require(mod)
+    end
+    if package.loaded[mod] == nil then
+        vim.notify("そんな物はない",vim.log.levels.WARN)
+        return
     end
 end,{
     nargs = "*",

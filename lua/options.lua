@@ -9,11 +9,12 @@ o.swapfile = false
 
 o.autochdir = true
 o.fileencodings = {
+    "iso-2022-jp", -- https://github.com/skk-dev/dict の一部のファイル
     "utf-8",
     "euc-jp", -- "SKK-JISYO.*"系
     "utf-16le", -- corvusskkの辞書ファイル
     "cp932",
-    "ansi"
+    "ansi",
 }
 o.fileencoding = "utf-8"
 

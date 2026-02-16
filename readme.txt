@@ -5,6 +5,7 @@ neovimのバージョンは0.12.0
 ├── lua/
 │   ├── commands/ -- Exコマンド
 │   │   ├─── init.lua -- いろいろ
+│   │   ├─── nu.lua -- nu を編集する用
 │   │   ├─── others.lua
 │   │   ╰─── vimdoc.lua -- vimdoc の編集用
 │   │

@@ -41,7 +41,7 @@ o.shellcmdflag = "--login --no-newline --stdin --commands" -- 設定を読み込
 o.shellxquote = "" -- よくわからない
 o.shell = "nu.exe" -- 拡張子が無いとバッファ名の拡張子が大文字になって気持ち悪い
 o.warn = false -- 未保存バッファで外部コマンドを実行しても注意を出さない
-o.shellslash = true -- スラッシュのほうが扱いやすい
+o.completeslash = "slash" -- スラッシュのほうが扱いやすい
 
 -- 検索・置換
 o.wrapscan = false -- 終わりを知りたい

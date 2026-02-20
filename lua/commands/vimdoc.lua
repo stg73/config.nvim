@@ -14,11 +14,17 @@ function M.edit_original(opts)
 
     local doc_name = opts.args ~= "" and opts.args or vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0),":t:r")
     local original_doc_path = vim.env.VIMRUNTIME .. "/doc/" .. doc_name .. ".txt"
+    vim.o.scrollbind = false
     vim.cmd.vsplit(original_doc_path)
+    vim.o.scrollbind = true
 
     -- カーソル位置の復元
     vim.fn.feedkeys(topline .. "Gzt","n")
-    vim.schedule(function() vim.api.nvim_win_set_cursor(0,pos) end) -- schedule しないとカーソルが移動しない
+    vim.schedule(function()
+        vim.api.nvim_win_set_cursor(0,pos)
+        vim.cmd.wincmd("l")
+        vim.o.scrollbind = true
+    end) -- schedule しないとカーソルが移動しない
 end
 
 return M

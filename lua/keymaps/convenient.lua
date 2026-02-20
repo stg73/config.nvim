@@ -9,7 +9,7 @@ k("n","<c-w>T","<cmd>split | buffer term:<cr>") -- 楽にterminal bufferを使�
 
 -- 検索系
 local search = function(str)
-    return vim.system({"nu","--commands","start 'https://google.com/search?q=" .. str .. "'"})
+    return vim.ui.open("https://google.com/search?q=" .. str)
 end
 
 k("v","gs",function()

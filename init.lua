@@ -133,7 +133,7 @@ function enter_shell_cmdline(opts)
     opts.timeout = opts.timeout or 160
     opts.filetype = opts.filetype or "nu"
 
-    vim.bo[require("vim._core.ui2").bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
+    vim.bo[ui2.bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
     vim.ui.input({
         prompt = ":",
         completion = "shellcmdline",

@@ -18,7 +18,7 @@ function M.setup()
         nested = true, -- [[\vrecording \@.]] の表示を出す
         callback = function()
             vim.o.cmdheight = 1
-            require("vim._core.ui2").cfg.msg.target = "msg" -- 既定では 1 にすると "cmd" になる
+            ui2.cfg.msg.target = "msg" -- 既定では 1 にすると "cmd" になる
         end,
     })
     vim.api.nvim_create_autocmd("RecordingLeave",{
@@ -32,7 +32,7 @@ function M.setup()
     -- tOggle
     vim.keymap.set("n","<leader>o",function()
         vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
-        require("vim._core.ui2").cfg.msg.target = "msg"
+        ui2.cfg.msg.target = "msg"
     end)
 
     -- ui2のblendをset_hlできるようにする

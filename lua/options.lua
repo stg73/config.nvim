@@ -16,7 +16,6 @@ o.fileencodings = {
     "cp932",
     "ansi",
 }
-o.fileencoding = "utf-8"
 
 -- 文字
 o.autoindent = true

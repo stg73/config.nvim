@@ -83,14 +83,6 @@ local treesitter = vim.api.nvim_create_augroup("treesitter",{})
 
 vim.api.nvim_create_autocmd("filetype",{
     group = treesitter,
-    pattern = "markdown",
-    callback = function(x)
-        vim.treesitter.start(x.buf,"markdown")
-    end,
-})
-
-vim.api.nvim_create_autocmd("filetype",{
-    group = treesitter,
     pattern = "vim",
     callback = function(x)
         vim.treesitter.start(x.buf,"vim")

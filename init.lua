@@ -15,8 +15,13 @@ char = require("character_table")
 vim.keymap.get = require("get_keymap").get
 
 vim.g.mapleader = "-"
-vim.keymap.set({"n","i","v","c","t","o"},"<leader><leader>","<leader>")
-vim.keymap.set({"n","i","v","c","t","o"},"<leader><esc>","")
+tbl.pairs(function(k_v)
+    vim.keymap.set({"n","i","v","c","t","o"},"<leader>" .. k_v[1],k_v[2])
+end)({
+    [""] = "",
+    ["<leader>"] = "<leader>",
+    ["<esc>"] = "",
+})
 
 pkg = require("packages").module
 require("packages").setup()

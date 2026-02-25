@@ -41,6 +41,22 @@ function M.setup()
             vim.wo.winblend = 1
         end,
     })
+
+    -- CmdWinLeave 時にウィンドウが表示されてしまうので、修正する
+    local function is_ui2_autocmd(tbl)
+        return tbl.desc == "Hide or reposition pager window."
+    end
+    local t = require("tbl")
+    vim.api.nvim_create_autocmd("CmdWinLeave",{
+        callback = function()
+            t.pipe({
+                vim.api.nvim_get_autocmds({ event = "CmdWinLeave" }),
+                t.filter(is_ui2_autocmd),
+                t.map(t.get("id")),
+                t.map(vim.api.nvim_del_autocmd),
+            })
+        end,
+    })
 end
 
 return M

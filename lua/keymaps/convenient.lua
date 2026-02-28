@@ -34,7 +34,7 @@ k("n","<leader>i",'pmq`[mz`qx`zP') -- 入れ換える
 k("n","<leader>f","T/vf/") -- ファイルパスやSKK辞書を編集するため
 k('n','<leader>!',function()
     local cmd = vim.fn.getreg(":")
-    local bang_cmd = r.gsub("!")("(^/a+)@<=( |$)@=")(cmd)
+    local bang_cmd = r.gsub("!")("(^\\a+)@<=( |$)@=")(cmd)
     return ":" .. bang_cmd .. "\n" -- 直接コマンドを実行するとエラーメッセージが派手
 end,{ expr = true }) -- 前回実行したコマンドを強制実行する
 k('i','<leader>n','<esc>') k('t','<leader>n','<c-\\><c-n>') k('c','<leader>n','<cr>')
@@ -60,7 +60,7 @@ local function set_cmdline(fn) return function()
     vim.fn.feedkeys(expr .. '\r',"n")
 end end
 
-k('c','<c-u>',set_cmdline(r.remove("[// ]@<=[^//]*.$"))) -- Up ファイル名補完で親ディレクトリに移動する
+k('c','<c-u>',set_cmdline(r.remove("[/ ]@<=[^/]*.$"))) -- Up ファイル名補完で親ディレクトリに移動する
 
 -- レジスタを楽に編集 -- "https://zenn.dev/ryoppippi/articles/e2ad1047bc950c"をもとに作成
 k('n','<leader>r',function()

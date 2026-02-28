@@ -55,7 +55,7 @@ vim.api.nvim_create_user_command("SkkSearchMidasiKouho", k.search_midasi_kouho,
 -- 指定した範囲に対し複数のコマンドを実行
 -- Pipe の後に書いたコマンド中の "%" がPipeの範囲に置換される
 vim.api.nvim_create_user_command("Pipe",function(x)
-    vim.cmd(require("regex").gsub(x.line1 .. "," .. x.line2)("/%")(x.args))
+    vim.cmd(require("regex").gsub(x.line1 .. "," .. x.line2)("\\%")(x.args))
 end,
 {range = true,nargs = 1,complete = "command"})
 

@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd('CmdWinEnter',{
     group = group,
     pattern = {"/","?"},
     callback = function()
-        if regex.is("[//?]")(vim.fn.getcmdwintype()) then -- "-" や "@" のタイプを避ける
+        if regex.is("[/?]")(vim.fn.getcmdwintype()) then -- "-" や "@" のタイプを避ける
             vim.bo.filetype = "regex"
         end
     end,
@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd("CmdLineEnter",{
     pattern = {"/","?"},
     callback = function()
         local cmdline = ui2.bufs.cmd
-        if regex.is("[//?]")(vim.fn.getcmdtype()) then
+        if regex.is("[/?]")(vim.fn.getcmdtype()) then
             vim.bo[cmdline].syntax = "regex"
         end
     end,

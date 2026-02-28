@@ -1,7 +1,6 @@
-vim.cmd([[
-syntax match string_text '\v".{-}"'
-]])
+local s = require("syntax").syntax
+s "string_text" { match = '".{-}"' }
 
-local l = require("highlights").link
+local l = require("syntax").link
 
 l 'string_text' 'string'

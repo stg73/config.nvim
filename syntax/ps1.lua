@@ -15,7 +15,7 @@ syntax match ps1function '\v[^ ().]+(\(.*\))@='
 syntax match ps1function '\v(^ *function +)@<=[^ (){}]+'
 ]])
 
-local l = require("highlights").link
+local l = require("syntax").link
 
 l "property_powershell" "@property"
 l "member_powershell" "@variable.member"

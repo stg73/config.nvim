@@ -1,11 +1,10 @@
-vim.cmd([[
-    syntax match nuVarMember '\v(\$\S+\.)@<=\S+' contained containedin=nuVar
-    syntax match nuPipe '\v\|'
-    syntax match nuBracket '\v[}{]'
-    syntax match nuProperty '\v\w+:@='
-]])
+local s = require("syntax").syntax
+s "nuVarMember" { match = [[(\$\S+\.)@<=\S+]], contained = true, containedin = "nuVar" }
+s "nuPipe" { match = "\\|" }
+s "nuBracket" { match = "[}{]" }
+s "nuProperty" { match = "\\w+:@=" }
 
-local l = require("highlights").link
+local l = require("syntax").link
 
 l "nuVarMember" "@variable.member"
 l "nuPipe" "@punctuation.delimiter"

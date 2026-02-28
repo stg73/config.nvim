@@ -1,10 +1,9 @@
-vim.cmd([[
-syntax keyword cssTagName search
-syntax keyword cssMediaProp prefers-color-scheme
-syn keyword cssTextProp contained text-underline-offset color-scheme scroll-margin-top
-]])
+local s = require("syntax").syntax
+s "cssTagName" { keyword = "search"}
+s "cssMediaProp" { keyword = "prefers-color-scheme" }
+s "cssTextProp" { keyword = { "text-underline-offset", "color-scheme", "scroll-margin-top" }, contained = true }
 
-local l = require("highlights").link
+local l = require("syntax").link
 
 l "cssBraces" "@punctuation.bracket"
 l "cssTagName" "special"

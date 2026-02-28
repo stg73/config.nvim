@@ -1,12 +1,7 @@
 local M = {}
 
-M.set = require("tbl").curry(3)(vim.api.nvim_set_hl)(0)
-M.link = function(hl) return function(link)
-    M.set(hl)({ link = link })
-end end
-
-local h = M.set
-local l = M.link
+local h = require("tbl").curry(3)(vim.api.nvim_set_hl)(0)
+local l = require("syntax").link
 
 function M.setup()
 l "keyword" "@keyword"

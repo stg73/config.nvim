@@ -1,3 +1,3 @@
-local l = require("highlights").link
+local l = require("syntax").link
 
 l "htmlEndTag" "htmlTag"

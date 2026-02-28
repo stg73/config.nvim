@@ -40,14 +40,8 @@ end,{ expr = true }) -- 前回実行したコマンドを強制実行する
 k('i','<leader>n','<esc>') k('t','<leader>n','<c-\\><c-n>') k('c','<leader>n','<cr>')
 k('n','<leader>n','a<cr><esc><c-\\><c-n>') -- 上にだいたい同じ
 k('v','<leader>s','"qy:%s/\\V<c-r>"') k('n','<leader>s',[["qyiw:%s/\V\<<c-r>"\>]]) k('n','<leader>S',[["qyiw:'<,'>s/\V\<<c-r>"\>]]) -- Substitute
-k('n','<leader>b',function() -- "<cmd>ls<cr>" だと上部に空行ができてしまう
-    local buf_list = vim.api.nvim_exec2("ls",{ output = true }).output
-    vim.api.nvim_echo({{buf_list}},false,{})
-end) -- Bufferを一覧で見る
-k('n','<leader>B',function()
-    local buf_list = vim.api.nvim_exec2("ls!",{ output = true }).output
-    vim.api.nvim_echo({{buf_list}},false,{})
-end) -- すべてのBufferを一覧で見る
+k('n','<leader>b',"<cmd>ls<cr>") -- Bufferを一覧で見る
+k('n','<leader>B',"<cmd>ls!<cr>") -- すべてのBufferを一覧で見る
 k("n","<leader>I","<cmd>Inspect<cr>") -- Inspect
 -- cmwin 用マッピング
 vim.api.nvim_create_autocmd('cmdwinenter',{

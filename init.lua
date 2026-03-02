@@ -36,7 +36,7 @@ require("ghosttext").start()
 
 -- プラグイン
 vim.keymap.set({"o","n","v"},"<leader>j",require("select_position").opt().set_cursor)
-vim.keymap.set({"o","n","v"},"<leader><leader>",require("select_position").opt({ character = "/s" }).set_cursor)
+vim.keymap.set({"o","n","v"},"<leader><leader>",require("select_position").opt({ character = "\\s" }).set_cursor)
 
 -- デフォルトプラグインを無効化
 tbl.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({

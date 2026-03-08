@@ -30,7 +30,7 @@ k("n","<leader>O",function() -- scrOllbind
     vim.o.scrollbind = not vim.o.scrollbind
 end)
 
-k("n","<leader>i",'pmq`[mz`qx`zP') -- 入れ換える
+k("n","<leader>i",'pmq`[mz`qx`zP') -- 入れ換える "hoge,fuga" を "fuga,hoge" にするなど
 k("n","<leader>f","T/vf/") -- ファイルパスやSKK辞書を編集するため
 k('n','<leader>!',function()
     local cmd = vim.fn.getreg(":")
@@ -62,7 +62,7 @@ end end
 
 k('c','<c-u>',set_cmdline(r.remove("[/ ]@<=[^/]*.$"))) -- Up ファイル名補完で親ディレクトリに移動する
 
--- レジスタを楽に編集 -- "https://zenn.dev/ryoppippi/articles/e2ad1047bc950c"をもとに作成
+-- レジスタを楽に編集 -- https://zenn.dev/ryoppippi/articles/e2ad1047bc950c をもとに作成
 k('n','<leader>r',function()
     local reg_name = vim.fn.getcharstr()
     local reg_content = vim.fn.getreg(reg_name)

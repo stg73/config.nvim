@@ -15,7 +15,7 @@ function M.setup()
     local group = vim.api.nvim_create_augroup("show-recording-message",{})
     vim.api.nvim_create_autocmd("RecordingEnter",{
         group = group,
-        nested = true, -- [[\vrecording \@.]] の表示を出す
+        nested = true, -- ui2にオプションを反映する
         callback = function()
             vim.o.cmdheight = 1
         end,

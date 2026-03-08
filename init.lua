@@ -1,4 +1,4 @@
-vim.loader.enable(true) -- よく分からない
+vim.loader.enable(true)
 
 -- ローカルのプラグイン読み込み
 vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. name .. ".nvim") end,{

@@ -3,10 +3,12 @@ local M = {}
 function M.setup()
 require("commands.others").setup()
 
+-- vimdoc を編集するためのコマンド
 local vimdoc = require("commands.vimdoc")
 vim.api.nvim_create_user_command("VimdocGrepHighlightErrors",vimdoc.grep_highlight_errors,{})
 vim.api.nvim_create_user_command("VimdocEditOriginal",vimdoc.edit_original,{})
 
+-- nu を編集するためのコマンド
 local nu = require("commands.nu")
 vim.api.nvim_create_user_command("NuExternCommand",nu.extern_command,{ nargs = "*", range = true })
 vim.api.nvim_create_user_command("NuExternFlag",nu.extern_flag,{ range = true })
@@ -54,11 +56,14 @@ vim.api.nvim_create_user_command("SkkSearchMidasiKouho", k.search_midasi_kouho,
 
 -- 指定した範囲に対し複数のコマンドを実行
 -- Pipe の後に書いたコマンド中の "%" がPipeの範囲に置換される
+-- 例: "'<,'>Pipe %w hoge | %d" -> "'<,'>w hoge | '<,'>d"
 vim.api.nvim_create_user_command("Pipe",function(x)
     vim.cmd(require("regex").gsub(x.line1 .. "," .. x.line2)("\\%")(x.args))
 end,
 {range = true,nargs = 1,complete = "command"})
 
+-- luaモジュールのキャッシュを削除する
+-- 第2引数を指定するとそのグローバル変数に require 結果を代入する
 vim.api.nvim_create_user_command("DelCach",function(x)
     local mod = x.fargs[1]
     local var = x.fargs[2]

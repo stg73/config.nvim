@@ -4,7 +4,7 @@ local o = vim.opt
 
 function M.setup()
 -- 無効化
-o.mouse = ""
+o.mouse = "" -- クリックに反応すると邪魔
 o.swapfile = false
 
 o.autochdir = true
@@ -36,9 +36,9 @@ o.cmdwinheight = 10
 o.guicursor = { "n-v-sm:block", "i-c-t-ci-o-ve:ver25", "r-cr:hor20" }
 
 o.shellcmdflag = "--login --no-newline --stdin --commands" -- 設定を読み込む 余計な行を表示しない ":%!ls" などが使えるように
-o.shellxquote = "" -- よくわからない
+o.shellxquote = ""
 o.shell = "nu.exe" -- 拡張子が無いとバッファ名の拡張子が大文字になって気持ち悪い
-o.warn = false -- 未保存バッファで外部コマンドを実行しても注意を出さない
+o.warn = false
 o.completeslash = "slash" -- スラッシュのほうが扱いやすい
 
 -- 検索・置換

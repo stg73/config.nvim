@@ -1,11 +1,5 @@
 local M = {}
 
--- "、|hoge|"のような文字列があった場合、treesitterでは"|hoge|"がハイライトされない
--- そのような文字列を検索する
-function M.grep_highlight_errors(opts)
-    vim.cmd.vimgrep([[/\v[^ \t.(`]\|[!-~]{-}\|/g]],opts.args ~= "" and opts.args or "*")
-end
-
 -- 翻訳版を編集しているとき、公式ヘルプを開く
 function M.edit_original(opts)
     -- カーソル位置の保存

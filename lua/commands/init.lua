@@ -5,7 +5,6 @@ require("commands.others").setup()
 
 -- vimdoc を編集するためのコマンド
 local vimdoc = require("commands.vimdoc")
-vim.api.nvim_create_user_command("VimdocGrepHighlightErrors",vimdoc.grep_highlight_errors,{})
 vim.api.nvim_create_user_command("VimdocEditOriginal",vimdoc.edit_original,{})
 
 -- nu を編集するためのコマンド

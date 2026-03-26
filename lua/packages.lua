@@ -2,13 +2,14 @@ local M = {}
 
 local P = require("package_manager").directory(vim.env.home .. "/test/package")
 
+local gh = function(x) return "https://github.com/" .. x end
 local packages = {
-    { repo = "skanehira/jumpcursor.vim", desc = "いい感じにカーソルを動かす" },
-    { repo = "vim-jp/vimdoc-ja", desc = "日本語ヘルプ" },
-    { repo = "vim-jp/nvimdoc-ja", desc = "日本語ヘルプ" },
-    { repo = "tpope/vim-surround" },
-    { repo = "folke/tokyonight.nvim", desc = "カラースキーム" },
-    { repo = "rktjmp/hotpot.nvim", desc = "Fennel" },
+    { repo = gh "skanehira/jumpcursor.vim", desc = "いい感じにカーソルを動かす" },
+    { repo = gh "vim-jp/vimdoc-ja", desc = "日本語ヘルプ" },
+    { repo = gh "vim-jp/nvimdoc-ja", desc = "日本語ヘルプ" },
+    { repo = gh "tpope/vim-surround" },
+    { repo = gh "folke/tokyonight.nvim", desc = "カラースキーム" },
+    { repo = gh "rktjmp/hotpot.nvim", desc = "Fennel" },
 }
 
 -- P.install_table(packages)

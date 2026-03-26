@@ -10,11 +10,13 @@ local packages = {
     { repo = gh "tpope/vim-surround" },
     { repo = gh "folke/tokyonight.nvim", desc = "カラースキーム" },
     { repo = gh "rktjmp/hotpot.nvim", desc = "Fennel" },
+    { repo = gh "rbtnn/vim-ambiwidth" }
 }
 
 -- P.install_table(packages)
 
 local load = {
+    ["vim-ambiwidth"] = {},
     ["hotpot.nvim"] = {
         lazy = {
             command = "Fnl"

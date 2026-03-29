@@ -8,7 +8,9 @@ function M.edit_original(opts)
 
     local doc_name = opts.args ~= "" and opts.args or vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0),":t:r")
     local original_doc_path = vim.env.VIMRUNTIME .. "/doc/" .. doc_name .. ".txt"
-    vim.o.scrollbind = false
+    vim.tbl_map(function(w)
+        vim.wo[w].scrollbind = false
+    end,vim.api.nvim_list_wins())
     vim.cmd.vsplit(original_doc_path)
     vim.o.scrollbind = true
 

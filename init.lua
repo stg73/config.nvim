@@ -86,13 +86,10 @@ vim.api.nvim_create_autocmd("BufWinEnter",{
 })
 
 -- treesitter
-local treesitter = vim.api.nvim_create_augroup("treesitter",{})
-
 vim.api.nvim_create_autocmd("filetype",{
-    group = treesitter,
-    pattern = "vim",
-    callback = function(x)
-        vim.treesitter.start(x.buf,"vim")
+    group = vim.api.nvim_create_augroup("treesitter",{}),
+    callback = function()
+        pcall(vim.treesitter.start) -- ゴリ押し
     end,
 })
 

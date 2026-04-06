@@ -112,21 +112,21 @@ vim.api.nvim_create_autocmd("FileType",{
 })
 
 -- コマンドラインモードの <c-w> の挙動を統一する
+local iskeyword = vim.filetype.get_option("vim","iskeyword")
+local original -- 状態を保存する
+local group = vim.api.nvim_create_augroup("cmdline-iskeyword",{}),
 vim.api.nvim_create_autocmd("CmdLineEnter",{
-    group = vim.api.nvim_create_augroup("cmdline-iskeyword",{}),
+    group = group,
     callback = function()
-        local iskeyword = vim.bo.iskeyword
-
-        vim.bo.iskeyword = vim.filetype.get_option("vim","iskeyword")
-
-        -- コマンドラインを出たらオプションを復元する
-        vim.api.nvim_create_autocmd("CmdLineLeave",{
-            once = true,
-            callback = function()
-                vim.bo.iskeyword = iskeyword
-            end
-        })
-    end
+        original = vim.bo.iskeyword
+        vim.bo.iskeyword = iskeyword
+    end,
+})
+vim.api.nvim_create_autocmd("CmdLineLeave",{
+    group = group,
+    callback = function()
+        vim.bo.iskeyword = original
+    end,
 })
 
 -- neovimのコマンドラインをシェルのコマンドラインとして使う

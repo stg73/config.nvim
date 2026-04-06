@@ -231,8 +231,8 @@ local function update_addresses(file) return function(add_or_remove)
     f:close()
 end end
 
-local update = update_addresses(vim.env.HOME .. "/nvim_addresses")
-local group = vim.api.nvim_create_augroup("manage_nvim_addresses",{})
+local update = update_addresses(vim.env.HOME .. "/nvim_serverlist")
+local group = vim.api.nvim_create_augroup("manage_nvim_serverlist",{})
 vim.api.nvim_create_autocmd({"VimEnter","FocusGained"},{
     group = group,
     callback = function()

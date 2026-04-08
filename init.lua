@@ -29,8 +29,10 @@ require("commands").setup()
 require("keymaps").setup()
 require("highlights").setup()
 require("options").setup()
-require("env").setup()
 require("ui2").setup()
+for k,v in pairs(require("env")) do
+    vim.env[k] = v
+end
 
 -- プラグイン
 vim.keymap.set({"o","n","v"},"<leader>j",require("select_position").opt().set_cursor)

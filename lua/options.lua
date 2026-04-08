@@ -34,6 +34,7 @@ o.showmode = false -- モードなど存在しない
 o.ruler = false -- 表示はできるだけ少なく
 o.cmdwinheight = 10
 o.guicursor = { "n-v-sm:block", "i-c-t-ci-o-ve:ver25", "r-cr:hor20" }
+o.showtabline = 0
 
 o.shellcmdflag = "--login --no-newline --stdin --commands" -- 設定を読み込む 余計な行を表示しない ":%!ls" などが使えるように
 o.shellxquote = ""

@@ -42,6 +42,7 @@ k('n','<leader>n','a<cr><esc><c-\\><c-n>') -- 上にだいたい同じ
 k('v','<leader>s','"qy:%s/\\V<c-r>"') k('n','<leader>s',[["qyiw:%s/\V\<<c-r>"\>]]) k('n','<leader>S',[["qyiw:'<,'>s/\V\<<c-r>"\>]]) -- Substitute
 k('n','<leader>b',"<cmd>ls<cr>") -- Bufferを一覧で見る
 k('n','<leader>B',"<cmd>ls!<cr>") -- すべてのBufferを一覧で見る
+k('n','<leader>T',"<cmd>tabs<cr>") -- Tabpageを一覧で見る
 k("n","<leader>I","<cmd>Inspect<cr>") -- Inspect
 -- cmwin 用マッピング
 vim.api.nvim_create_autocmd('cmdwinenter',{

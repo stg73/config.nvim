@@ -7,7 +7,7 @@ neovimのバージョンは0.12.0
 │   │   ├─── init.lua -- いろいろ
 │   │   ├─── nu.lua -- nu を編集する用
 │   │   ├─── others.lua
-│   │   ╰─── vimdoc.lua -- vimdoc の編集用
+│   │   ╰─── help.lua -- vim help の編集用
 │   │
 │   ├── keymaps/ -- キーマップ
 │   │   ├─── char.lua -- 本来キーボードでやるべきこと

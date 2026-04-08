@@ -3,9 +3,13 @@ local M = {}
 function M.setup()
 require("commands.others").setup()
 
--- vimdoc を編集するためのコマンド
-local vimdoc = require("commands.vimdoc")
-vim.api.nvim_create_user_command("VimdocEditOriginal",vimdoc.edit_original,{})
+-- help を編集するためのコマンド
+vim.api.nvim_create_user_command("H",function()
+    require("commands.help").translate({
+        dir = vim.env.VIMRUNTIME .. "/doc",
+        name = vim.fn.expand("%:r")
+    })
+end,{})
 
 -- nu を編集するためのコマンド
 local nu = require("commands.nu")

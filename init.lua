@@ -24,12 +24,16 @@ end)({
 })
 
 pkg = require("packages").module
-require("packages").setup()
-require("commands").setup()
-require("keymaps").setup()
-require("highlights").setup()
-require("options").setup()
-require("ui2").setup()
+tbl.map(function(config)
+    require(config).setup()
+end)({
+    "packages",
+    "commands",
+    "keymaps",
+    "highlights",
+    "options",
+    "ui2",
+})
 for k,v in pairs(require("env")) do
     vim.env[k] = v
 end

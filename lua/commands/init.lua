@@ -6,7 +6,7 @@ require("commands.others").setup()
 -- help を編集するためのコマンド
 vim.api.nvim_create_user_command("H",function()
     require("commands.help").translate({
-        dir = vim.env.VIMRUNTIME .. "/doc",
+        dir = vim.env.t .. "/neovim/runtime" .. "/doc",
         name = vim.fn.expand("%:r")
     })
 end,{})

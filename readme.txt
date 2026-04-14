@@ -17,6 +17,7 @@ neovimのバージョンは 0.13.0 nightly 6b0367481c
 │   │
 │   ├── env.lua -- 環境変数
 │   ├── highlights.lua -- set_hl
+│   ├── nvim.lua -- vim.api のラッパー
 │   ├── options.lua -- オプション
 │   ╰── packages.lua -- プラグインの読み込みと設定
 │

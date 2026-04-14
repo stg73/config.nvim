@@ -1,6 +1,6 @@
 vim.loader.enable(true)
 
--- ローカルのプラグイン読み込み
+-- ローカルのプラグインをruntimepathに追加
 vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. name .. ".nvim") end,{
     "modules", "jump_cursor", "syntax", "ghosttext", "socket",
 })

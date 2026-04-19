@@ -6,7 +6,6 @@ neovimのバージョンは 0.13.0 nightly 6b0367481c
 │   ├── commands/ -- Exコマンド
 │   │   ├─── init.lua -- いろいろ
 │   │   ├─── nu.lua -- nu を編集する用
-│   │   ├─── others.lua
 │   │   ╰─── help.lua -- vim help の編集用
 │   │
 │   ├── keymaps/ -- キーマップ

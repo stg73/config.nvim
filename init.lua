@@ -78,17 +78,18 @@ vim.api.nvim_create_autocmd('vimenter',{
 -- neovimの中で起動した場合はgitのエディタとしてnvrを使う
 vim.env.git_editor = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
 
-vim.api.nvim_create_user_command("S",[[silent SkkAnnotate | SkkSort | write | execute "normal \<c-w>T"]],{bar = true}) -- 注釈を追加 ソート コミット
+vim.api.nvim_create_user_command("S",[[SkkAnnotate | SkkSort | write | execute "normal \<c-w>T"]],{bar = true}) -- 注釈を追加 ソート コミットするためterminalを出す
 
 -- helpを右側にいい感じに出す
+local set_help_position = function()
+    if vim.bo.buftype == "help" then
+        vim.cmd("wincmd L | vertical resize 85")
+        vim.opt.list = true
+    end
+end
 vim.api.nvim_create_autocmd("BufWinEnter",{
     group = vim.api.nvim_create_augroup("open-help-to-the-right",{}),
-    callback = vim.schedule_wrap(function() -- これを挟まないとbuftypeが判断できない
-            if vim.bo.buftype == "help" then
-                vim.cmd("wincmd L | vertical resize 85")
-                vim.opt.list = true
-            end
-        end)
+    callback = vim.schedule_wrap(set_help_position), -- scheduleを挟まないとbuftypeが判断できない
 })
 
 -- treesitter
@@ -142,7 +143,7 @@ function enter_shell_cmdline(opts)
     opts.timeout = opts.timeout or 160
     opts.filetype = opts.filetype or "nu"
 
-    vim.bo[ui2.bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
+    vim.bo[require("vim._core.ui2").bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
     vim.ui.input({
         prompt = ":",
         completion = "shellcmdline",

@@ -19,12 +19,12 @@ local api_words = {
 local function parse_name(pattern) return function(name)
     local t = {}
     local function loop(str)
-        local s,e = regex.find("^" .. pattern .. "_")(str)
+        local s,e = regex.find("^(" .. pattern ..  ")_")(str)
         if s then
             local x,y = string.sub(str,s,e - 1),string.sub(str,e + 1)
             table.insert(t,x)
             if y ~= "" then
-                loop(y)
+                return loop(y)
             end
         else
             table.insert(t,str)
@@ -33,7 +33,7 @@ local function parse_name(pattern) return function(name)
     loop(name)
     return t
 end end
-local parse_api_name = parse_name("(" .. table.concat(api_words,"|") .. ")")
+local parse_api_name = parse_name(table.concat(api_words,"|"))
 
 local function set_table(tbl,list)
     local function loop(i,t)
@@ -44,9 +44,9 @@ local function set_table(tbl,list)
                 if not t[list[i]] then
                     t[list[i]] = {}
                 end
-                loop(i + 1,t[list[i]])
+                return loop(i + 1,t[list[i]])
             else
-                loop(i + 1,t)
+                return loop(i + 1,t)
             end
         else
             t[list[i - 1]] = list[i]

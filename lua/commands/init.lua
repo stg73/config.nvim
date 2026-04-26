@@ -39,7 +39,7 @@ end)({
 })
 
 -- SKK辞書を編集する
-local k = require("skk").command
+local k = require("skk").cmd
 
 vim.api.nvim_create_user_command("SkkSort", k.sort,
 {bar = true,range = true})

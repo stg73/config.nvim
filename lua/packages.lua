@@ -1,6 +1,6 @@
 local M = {}
 
-local P = require("package_manager").directory(vim.env.home .. "/test/package")
+local P = require("package_manager").dir(vim.env.home .. "/test/package")
 
 local gh = function(x) return "https://github.com/" .. x end
 local packages = {

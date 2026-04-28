@@ -1,5 +1,5 @@
 neovimのconfig
-neovimのバージョンは 0.13.0 nightly 6b0367481c
+neovimのバージョンは nightly f83d0b9653
 
 ディレクトリ構造
 ├── lua/

@@ -8,6 +8,7 @@ o.mouse = "" -- クリックに反応すると邪魔
 o.swapfile = false
 
 o.autochdir = true
+o.fileformats = {"unix","dos"}
 o.fileencodings = {
     "utf-8",
     "euc-jp", -- "SKK-JISYO.*"系

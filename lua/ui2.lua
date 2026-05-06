@@ -7,7 +7,7 @@ function M.setup()
     ui2.enable({
         enable = true,
         msg = {
-            target = "msg",
+            targets = "msg",
             timeout = 2000
         }
     })

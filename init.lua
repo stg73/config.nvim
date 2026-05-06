@@ -192,13 +192,3 @@ vim.api.nvim_create_autocmd("VimLeavePre",{
     end,
 })
 
--- 問題: vim.ui.open() が機能しない。
--- 原因: vim.system({"cmd","/c",hoge}) が失敗する
--- 解決策: nuを使うようにする。
--- 他の案:
-    -- pwsh: 何も起こらない
-    -- explorer: URLに"="が含まれると機能しない
--- _get_open_cmd() の上書きでない理由: nuはpwshなどと違い {"nu","-c",cmd,cmdarg} ができない。
-vim.ui.open = function(url)
-    return vim.system({"nu","-c","start " .. url},{ text = true, detach = true })
-end

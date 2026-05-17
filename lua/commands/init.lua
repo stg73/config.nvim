@@ -17,12 +17,12 @@ vim.api.nvim_create_user_command("NuExternCommand",function(x) require("commands
 vim.api.nvim_create_user_command("NuExternFlag",function(x) require("commands.nu").extern_flag(x) end,{ range = true })
 
 -- 文字をまとめて置換
-local s = require("substitute_command")
+local s = require("substitute_cmd")
 local c = require("character_table")
 
 local tbl = require("tbl")
 tbl.pairs(function(k_v)
-    require("substitute_command").create_command(k_v[1])(k_v[2])
+    s.create_cmd(k_v[1])(k_v[2])
 end)({
     Katakana = c.Hiragana_Katakana,
     Hiragana = tbl.pairs(tbl.reverse)(c.Hiragana_Katakana),

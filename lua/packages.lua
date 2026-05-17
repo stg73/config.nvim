@@ -19,7 +19,7 @@ local load = {
     ["vim-ambiwidth"] = {},
     ["hotpot.nvim"] = {
         lazy = {
-            command = "Fnl"
+            cmd = "Fnl"
         }
     },
     ["nvimdoc-ja"] = {

@@ -37,9 +37,21 @@ o.cmdwinheight = 10
 o.guicursor = { "n-v-sm:block", "i-c-t-ci-o-ve:ver25", "r-cr:hor20" }
 o.showtabline = 0
 
-o.shellcmdflag = "--login --no-newline --stdin --commands" -- 設定を読み込む 余計な行を表示しない ":%!ls" などが使えるように
-o.shellxquote = ""
-o.shell = "nu.exe" -- 拡張子が無いとバッファ名の拡張子が大文字になって気持ち悪い
+local set_shell_options = function()
+    tbl.items(function(opt,val)
+        vim.o[opt] = val
+    end)(require("shell").options(vim.o.shell))
+end
+vim.api.nvim_create_autocmd("OptionSet",{
+    pattern = "shell",
+    group = vim.api.nvim_create_augroup("shell",{}),
+    desc = "shell* 系オプションを 'shell' の値に合わせて設定する",
+    callback = set_shell_options,
+})
+
+o.shell = "nu"
+set_shell_options()
+
 o.warn = false
 o.completeslash = "slash" -- スラッシュのほうが扱いやすい
 

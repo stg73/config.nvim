@@ -18,7 +18,9 @@ neovimのバージョンは nightly d9a7b68795
 │   ├── highlights.lua -- set_hl
 │   ├── nvim.lua -- vim.api のラッパー
 │   ├── options.lua -- オプション
-│   ╰── packages.lua -- プラグインの読み込みと設定
+│   ├── packages.lua -- プラグインの読み込みと設定
+│   ├── shell.lua -- シェル毎のオプション
+│   ╰── ui2.lua -- ui2の設定
 │
 ├── syntax/ -- 標準のハイライトを少し修正
 │   ├── css.lua

@@ -1,6 +1,6 @@
 local M = {}
 
-local h = require("tbl").curry(3)(vim.api.nvim_set_hl)(0)
+local h = require("fp").curry(3)(vim.api.nvim_set_hl)(0)
 local l = require("syntax").link
 
 function M.setup()

@@ -6,16 +6,16 @@ vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. na
 })
 
 regex = require("regex")
-tbl = require("tbl")
-str = require("string_utils")
+fp = require("fp")
+str = require("str_util")
 skk = require("skk")
-char = require("character_table")
+char = require("char_map")
 
 -- 拡張
 vim.keymap.get = require("get_keymap").get
 
 vim.g.mapleader = "-"
-tbl.pairs(function(k_v)
+fp.pairs(function(k_v)
     vim.keymap.set({"n","i","v","c","t","o"},"<leader>" .. k_v[1],k_v[2])
 end)({
     [""] = "",
@@ -24,7 +24,7 @@ end)({
 })
 
 pkg = require("packages").module
-tbl.map(function(config)
+fp.map(function(config)
     require(config).setup()
 end)({
     "packages",
@@ -39,14 +39,14 @@ for k,v in pairs(require("env")) do
 end
 
 -- プラグイン
-vim.keymap.set({"o","n","v"},"<leader>j",require("select_position").opt().set_cursor)
-vim.keymap.set({"o","n","v"},"<leader><leader>",require("select_position").opt({ character = "\\s" }).set_cursor)
+vim.keymap.set({"o","n","v"},"<leader>j",require("select_pos").opt().set_cursor)
+vim.keymap.set({"o","n","v"},"<leader><leader>",require("select_pos").opt({ character = "\\s" }).set_cursor)
 
 require("ghosttext").start()
 vim.cmd.packadd("nvim.undotree")
 
 -- デフォルトプラグインを無効化
-tbl.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
+fp.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
     "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", "gzip", "zipPlugin", "tutor_mode_plugin", "tarPlugin"
 })
 
@@ -101,7 +101,7 @@ vim.api.nvim_create_autocmd("filetype",{
 })
 
 -- カスタムURLスキーム
-local s = require("custom_url_scheme")
+local s = require("url_scheme")
 s.init()
 s.add({
     ht = require("open_webpage").open,
@@ -167,7 +167,7 @@ local function update_addresses(file) return function(add_or_remove)
     local f = io.open(file,"r")
     local content = vim.split(f:read("a") or "","\n",{ trimempty = true })
     f:close()
-    local new_content = tbl.filter(function(server) return server ~= vim.v.servername end)(content)
+    local new_content = fp.filter(function(server) return server ~= vim.v.servername end)(content)
     if add_or_remove then
         table.insert(new_content,vim.v.servername)
     end

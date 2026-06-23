@@ -18,24 +18,24 @@ vim.api.nvim_create_user_command("NuExternFlag",function(x) require("commands.nu
 
 -- 文字をまとめて置換
 local s = require("substitute_cmd")
-local c = require("character_table")
+local c = require("char_map")
 
-local tbl = require("tbl")
-tbl.pairs(function(k_v)
+local fp = require("fp")
+fp.pairs(function(k_v)
     s.create_cmd(k_v[1])(k_v[2])
 end)({
     Katakana = c.Hiragana_Katakana,
-    Hiragana = tbl.pairs(tbl.reverse)(c.Hiragana_Katakana),
+    Hiragana = fp.pairs(fp.reverse)(c.Hiragana_Katakana),
     Zennkaku = c.Hannkaku_Zennkaku,
-    Hannkaku = tbl.pairs(tbl.reverse)(c.Hannkaku_Zennkaku),
+    Hannkaku = fp.pairs(fp.reverse)(c.Hannkaku_Zennkaku),
     Dakuonn = c.Seionn_Dakuonn,
-    Seionn = tbl.pairs(tbl.reverse)(c.Seionn_Dakuonn),
+    Seionn = fp.pairs(fp.reverse)(c.Seionn_Dakuonn),
     Hutosenn = c.Hososenn_Hutosenn,
-    Hososenn = tbl.pairs(tbl.reverse)(c.Hososenn_Hutosenn),
+    Hososenn = fp.pairs(fp.reverse)(c.Hososenn_Hutosenn),
     Nijuusenn = c.Itijuusenn_Nijuusenn,
-    Itijuusenn = tbl.pairs(tbl.reverse)(c.Itijuusenn_Nijuusenn),
+    Itijuusenn = fp.pairs(fp.reverse)(c.Itijuusenn_Nijuusenn),
     Kadomaru = c.Kadokaku_Kadomaru,
-    Kadokaku = tbl.pairs(tbl.reverse)(c.Kadokaku_Kadomaru),
+    Kadokaku = fp.pairs(fp.reverse)(c.Kadokaku_Kadomaru),
 })
 
 -- SKK辞書を編集する

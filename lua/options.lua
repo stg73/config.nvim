@@ -38,7 +38,7 @@ o.guicursor = { "n-v-sm:block", "i-c-t-ci-o-ve:ver25", "r-cr:hor20" }
 o.showtabline = 0
 
 local set_shell_options = function()
-    tbl.items(function(opt,val)
+    fp.items(function(opt,val)
         vim.o[opt] = val
     end)(require("shell").options(vim.o.shell))
 end

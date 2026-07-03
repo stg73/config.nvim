@@ -8,8 +8,7 @@ function M.translate(opts)
     local pos = vim.api.nvim_win_get_cursor(0)
     local topline = vim.fn.line("w0")
 
-    local original_doc_path = doc_dir .. "/" .. doc_name .. ".txt"
-    local original_doc_path = vim.fs.joinpath(doc_dir,doc_name) .. ".txt"
+    local original_doc_path = doc_dir .. "/doc/" .. doc_name .. ".*"
     vim.tbl_map(function(w)
         vim.wo[w].scrollbind = false
     end,vim.api.nvim_list_wins())

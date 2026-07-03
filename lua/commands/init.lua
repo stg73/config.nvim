@@ -5,12 +5,12 @@ vim.api.nvim_create_user_command('Normal','<line1>,<line2>g/^/execute "normal <a
 vim.api.nvim_create_user_command('Todo','split ~/memos/todo.txt | set nobuflisted',{bar = true})
 
 -- help を編集するためのコマンド
-vim.api.nvim_create_user_command("H",function()
+vim.api.nvim_create_user_command("H",function(opts)
     require("commands.help").translate({
-        dir = vim.env.t .. "/neovim/runtime" .. "/doc",
+        dir = (opts.args ~= "") and opts.args or (vim.env.t .. "/neovim/runtime"),
         name = vim.fn.expand("%:r")
     })
-end,{})
+end,{ nargs = "*", complete = "file" })
 
 -- nu を編集するためのコマンド
 vim.api.nvim_create_user_command("NuExternCommand",function(x) require("commands.nu").extern_command(x) end,{ nargs = "*", range = true })

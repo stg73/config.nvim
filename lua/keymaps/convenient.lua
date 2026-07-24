@@ -9,16 +9,39 @@ k("n","<c-w>T","<cmd>split | buffer term:<cr>") -- 楽にterminal bufferを使�
 
 -- 検索系
 local search = function(str)
-    return vim.ui.open("https://google.com/search?q=" .. str)
+    return vim.ui.open("https://google.com/search?q=" .. vim.uri_encode(str))
 end
 
-k("v","gs",function()
-    local v_range = table.concat(vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = vim.fn.mode() }),"")
-    search(v_range)
-end)
+local get_region = function(s,e)
+    local mode = vim.fn.visualmode()
+    return table.concat(vim.fn.getregion(s,e,{ type = mode ~= "" and mode or "v" }),"\n")
+end
 
-k("n","gs",function()
-    search(vim.fn.expand("<cword>"))
+local _set_opfunc = vim.api.nvim_exec2([[
+    function s:foo(v)
+        let &operatorfunc = a:v
+    endfunction
+    echo get(function('s:foo'),'name')
+]],{ output = true }).output
+set_opfunc = vim.fn[_set_opfunc]
+M.def_operator = function(name,f)
+    vim.keymap.set({"n","v"},name,function()
+        set_opfunc(function()
+            local start = vim.fn.getpos("'[")
+            local finish = vim.fn.getpos("']")
+            f(start,finish)
+        end)
+        return "g@"
+    end,{ expr = true })
+end
+
+M.def_textobject = function(name,def)
+    k("v",name,def)
+    k("o",name,"<cmd>normal v" .. name .. "<cr>")
+end
+
+M.def_operator("gs",function(s,e)
+    search(get_region(s,e))
 end)
 
 k("n","gss",function()
@@ -35,7 +58,8 @@ end)
 
 
 k("n","<leader>i",'pmq`[mz`qx`zP') -- 入れ換える "hoge,fuga" を "fuga,hoge" にするなど
-k("n","<leader>f","T/vf/") -- ファイルパスやSKK辞書を編集するため
+M.def_textobject("if","T/ot/") -- ファイルパスやSKK辞書を編集するため
+M.def_textobject("af","T/of/") -- ファイルパスやSKK辞書を編集するため
 k('n','<leader>!',function()
     local cmd = vim.fn.getreg(":")
     local bang_cmd = r.gsub("!")("(^\\a+)@<=( |$)@=")(cmd)

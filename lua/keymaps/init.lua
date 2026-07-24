@@ -36,8 +36,12 @@ function M.setup()
         M.bracket(string.sub(str,s,e),string.sub(str,e + 1))
     end,brackets)
 
-    set('i','<c-b>','()<c-g>U<left>') set({'c','t'},'<c-b>','()<left>') -- Bracket
-    set('i','<c-d>','""<c-g>U<left>') set({'c','t'},'<c-d>','"<left>"') -- Double quote
+    fp.items(function(k,start)
+        set({"i","c","t"},k,"<leader>" .. start,{ remap = true })
+    end) {
+        ["<c-b>"] = "(", -- Bracket
+        ["<c-d>"] = '"', -- Double quote
+    }
 end
 
 return M

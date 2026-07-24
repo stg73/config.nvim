@@ -8,7 +8,7 @@ function M.setup()
         enable = true,
         msg = {
             targets = "msg",
-            timeout = 2000
+            timeout = 2000,
         }
     })
 

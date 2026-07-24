@@ -43,29 +43,32 @@ local load = {
     ["vim-surround"] = {
         lazy = { event = "CmdLineEnter" },
         hook_post = function()
-            local fp = require("fp")
-            local s = fp.curry(3)(vim.keymap.set)("n")
-            local nop = fp.flip(s)("")
-            s 'sd' '<Plug>Dsurround'   nop 'sd<esc>'
-            s 'ss' '<Plug>Yssurround'  nop 'ss<esc>'
-            s 'sS' '<Plug>YSsurround'  nop 'sS<esc>'
-            s 'sa' '<Plug>Ysurround'   nop 'sa<esc>'
-            s 'sr' '<Plug>Csurround'   nop 'sr<esc>'
-            s 'sR' '<Plug>CSurround'   nop 'sR<esc>'
+            fp.items(function(k,v)
+                vim.keymap.set("n",k .. "<esc>","")
+                vim.keymap.set("n",k,v)
+            end){
+                sd = '<Plug>Dsurround',
+                ss = '<Plug>Yssurround',
+                sS = '<Plug>YSsurround',
+                sa = '<Plug>Ysurround',
+                sr = '<Plug>Csurround',
+                sR = '<Plug>CSurround',
+                s = "",
+            }
             vim.keymap.set('v','s','<Plug>VSurround')
 
-            nop "s"
-            nop "s<esc>"
-
-            local d = fp.curry()(vim.keymap.del)("n")
-            d 'ds'
-            d 'yss'
-            d 'ySs'
-            d 'ySS'
-            d 'yS'
-            d 'ys'
-            d 'cs'
-            d 'cS'
+            fp.map(function(lhs)
+                vim.keymap.del("n",lhs)
+            end){
+                'ds',
+                'yss',
+                'ySs',
+                'ySS',
+                'yS',
+                'ys',
+                'cs',
+                'cS',
+            }
             vim.keymap.del("v",'S')
         end,
     },

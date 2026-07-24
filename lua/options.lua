@@ -26,13 +26,14 @@ o.shiftwidth = 4
 o.matchpairs:append({ "<:>", "「:」", "『:』", "【:】" })
 o.number = true
 
-o.pumblend = 1
-o.statusline = "─"
+o.statusline = "%##" -- 空に設定する
 o.fillchars = { eob = " ", stl = "─", stlnc = "─", vert = "│" }
+
+o.pumblend = 1
 o.numberwidth = 1 -- ファイルの内容をできるだけ多く表示する
 o.laststatus = 0 -- 邪魔
 o.showmode = false -- モードなど存在しない
-o.ruler = false -- 表示はできるだけ少なく
+o.ruler = false -- 邪魔
 o.cmdwinheight = 10
 o.guicursor = { "n-v-sm:block", "i-c-t-ci-o-ve:ver25", "r-cr:hor20" }
 o.showtabline = 0

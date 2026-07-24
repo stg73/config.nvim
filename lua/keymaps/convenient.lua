@@ -52,16 +52,13 @@ vim.api.nvim_create_autocmd('cmdwinenter',{
         k("n","<leader>n","<cr>",{ buffer = true })
     end,
 })
-k('n','<c-n>','<cmd>bnext | execute "normal \\<c-g>"<cr>') -- Next
-k('n','<c-p>','<cmd>bprevious | execute "normal \\<c-g>"<cr>') -- Previous
-local function set_cmdline(fn) return function()
-    vim.fn.feedkeys(vim.keycode("<c-\\>e")) -- 編集モードに入る
-    local cmd = vim.fn.getcmdline()
-    local expr = "'" .. vim.fn.escape(fn(cmd),"'") .. "'"
-    vim.fn.feedkeys(expr .. '\r',"n")
+k('n','<c-n>','<cmd>bnext<cr><c-g>') -- Next
+k('n','<c-p>','<cmd>bprevious<cr><c-g>') -- Previous
+local function update_cmdline(fn) return function()
+    vim.fn.setcmdline(fn(vim.fn.getcmdline()))
 end end
 
-k('c','<c-u>',set_cmdline(r.remove("[/ ]@<=[^/]*.$"))) -- Up ファイル名補完で親ディレクトリに移動する
+k('c','<c-u>',update_cmdline(r.remove("[/ ]@<=[^/]*.$"))) -- Up ファイル名補完で親ディレクトリに移動する
 
 -- レジスタを楽に編集 -- https://zenn.dev/ryoppippi/articles/e2ad1047bc950c をもとに作成
 k('n','<leader>r',function()
@@ -70,8 +67,7 @@ k('n','<leader>r',function()
     vim.ui.input({
         prompt = "let @" .. reg_name .. ": ",
         default = reg_content
-    },
-    function(input)
+    },function(input)
         -- <esc>した時にはレジスターの内容を変更しない
         if input then
             vim.fn.setreg(reg_name,input)

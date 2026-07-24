@@ -1,4 +1,4 @@
-vim.loader.enable(true)
+vim.loader.enable()
 
 -- ローカルのプラグインをruntimepathに追加
 vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. name .. ".nvim") end,{
@@ -15,28 +15,26 @@ char = require("char_map")
 vim.keymap.get = require("get_keymap").get
 
 vim.g.mapleader = "-"
-fp.pairs(function(k_v)
-    vim.keymap.set({"n","i","v","c","t","o"},"<leader>" .. k_v[1],k_v[2])
-end)({
+fp.items(function(k,v)
+    vim.keymap.set({"n","i","v","c","t","o"},"<leader>" .. k,v)
+end) {
     [""] = "",
     ["<leader>"] = "<leader>",
     ["<esc>"] = "",
-})
+}
 
 pkg = require("packages").module
 fp.map(function(config)
     require(config).setup()
-end)({
+end) {
     "packages",
     "commands",
     "keymaps",
     "highlights",
     "options",
     "ui2",
-})
-for k,v in pairs(require("env")) do
-    vim.env[k] = v
-end
+}
+fp.items(vim.fn.setenv)(require("env"))
 
 -- プラグイン
 vim.keymap.set({"o","n","v"},"<leader>j",require("select_pos").opt().set_cursor)
@@ -47,7 +45,7 @@ vim.cmd.packadd("nvim.undotree")
 
 -- デフォルトプラグインを無効化
 fp.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
-    "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", "gzip", "zipPlugin", "tutor_mode_plugin", "tarPlugin"
+    "netrwPlugin", "gzip", "zipPlugin", "tutor_mode_plugin", "tarPlugin"
 })
 
 -- シンタクスハイライト
@@ -64,7 +62,7 @@ vim.api.nvim_create_autocmd({"bufenter","termopen"},{ -- オプションを強�
 
 -- 起動時にterminalを開く
 vim.api.nvim_create_autocmd('vimenter',{
-    group = vim.api.nvim_create_augroup("open-terminal-when-vimenter",{}),
+    group = vim.api.nvim_create_augroup("open-terminal-on-vimenter",{}),
     nested = true, -- terminal自動コマンド用
     callback = function()
         local buf_content = table.concat(vim.api.nvim_buf_get_lines(0,0,-1,false),'\n')
@@ -103,10 +101,10 @@ vim.api.nvim_create_autocmd("filetype",{
 -- カスタムURLスキーム
 local s = require("url_scheme")
 s.init()
-s.add({
+s.add {
     ht = require("open_webpage").open,
     gh = require("open_github").open,
-})
+}
 
 local group = vim.api.nvim_create_augroup("filetype-settings",{})
 vim.api.nvim_create_autocmd("FileType",{
@@ -164,16 +162,12 @@ nvim = require("nvim")
 -- nvim --serverlist の代わり
 -- これを利用するもの: https://github.com/stg73/config.nu/blob/main/neovim-remote.nu
 local function update_addresses(file) return function(add_or_remove)
-    local f = io.open(file,"r")
-    local content = vim.split(f:read("a") or "","\n",{ trimempty = true })
-    f:close()
+    local content = vim.fn.readfile(file)
     local new_content = fp.filter(function(server) return server ~= vim.v.servername end)(content)
     if add_or_remove then
         table.insert(new_content,vim.v.servername)
     end
-    local f = io.open(file,"w")
-    f:write(table.concat(new_content,"\n"))
-    f:close()
+    vim.fn.writefile(new_content,file)
 end end
 
 local update = update_addresses(vim.env.XDG_STATE_HOME .. "/nvim_serverlist")

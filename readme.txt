@@ -4,20 +4,20 @@ neovimのバージョンは nightly d9a7b68795
 ディレクトリ構造
 ├── lua/
 │   ├── commands/ -- Exコマンド
-│   │   ├─── init.lua -- いろいろ
+│   │   ├─── init.lua
 │   │   ├─── nu.lua -- nu を編集する用
 │   │   ╰─── help.lua -- vim help の編集用
 │   │
 │   ├── keymaps/ -- キーマップ
 │   │   ├─── char.lua -- 本来キーボードでやるべきこと
 │   │   ├─── convenient.lua -- 便利なもの
-│   │   ├─── hoge.lua -- 名前を思い付かなかった
+│   │   ├─── hoge.lua -- その他
 │   │   ╰─── init.lua
 │   │
 │   ├── env.lua -- 環境変数
 │   ├── highlights.lua -- set_hl
 │   ├── nvim.lua -- vim.api のラッパー
-│   ├── options.lua -- オプション
+│   ├── options.lua -- オプションの設定
 │   ├── packages.lua -- プラグインの読み込みと設定
 │   ├── shell.lua -- シェル毎のオプション
 │   ╰── ui2.lua -- ui2の設定

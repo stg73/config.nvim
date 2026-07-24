@@ -2,46 +2,42 @@ local M = {}
 
 local set = vim.keymap.set
 
+local keys = {
+    i = "#", -- Igeta 井桁
+    p = "%", -- Percent sign
+    k = "*", -- asterisK
+    c = "^", -- Circumflex
+    t = "~", -- Tilde
+    a = "&", -- Ampersand
+    d = "$", -- Dollar mark
+    v = "|", -- Vertical bar
+    x = "!", -- EXclamation mark
+    q = "?", -- Question mark
+    h = "/", -- slasH
+    b = "\\", -- Back slash
+    u = "_", -- Under bar
+    [";"] = ":", -- 形が:に似ている
+
+    -- nuMber 大西配列のホーム行の順番
+    me = "0",
+    mi = "1",
+    ma = "2",
+    mo = "3",
+    ["m-"] = "4",
+    mk = "5",
+    mt = "6",
+    mn = "7",
+    ms = "8",
+    mh = "9",
+}
+
 function M.setup()
     set({"i","v","t","o"},"\t","<cmd>set noexpandtab<cr><cmd>set shiftwidth=8<cr>\t<cmd>set expandtab<cr><cmd>set shiftwidth=4<cr>") -- vim.o.expandtab でもタブを入力する
     set("i","<leader>r","<cr>") -- Return
 
-    local keys = {
-        i = "#", -- Igeta 井桁
-        p = "%", -- Percent sign
-        k = "*", -- asterisK
-        c = "^", -- Circumflex
-        t = "~", -- Tilde
-        a = "&", -- Ampersand
-        d = "$", -- Dollar mark
-        v = "|", -- Vertical bar
-        x = "!", -- EXclamation mark
-        q = "?", -- Question mark
-        h = "/", -- slasH
-        b = "\\", -- Back slash
-        u = "_", -- Under bar
-        [";"] = ":", -- 形が:に似ている
-
-        -- nuMber 大西配列のホーム行の順番
-        me = "0",
-        mi = "1",
-        ma = "2",
-        mo = "3",
-        ["m-"] = "4",
-        mk = "5",
-        mt = "6",
-        mn = "7",
-        ms = "8",
-        mh = "9",
-    }
-
-    local function keybord(x,y)
+    fp.items(function(x,y)
         set({"n","i","v","c","t","o"},"<leader>" .. x,y,{ remap = true })
-    end
-
-    vim.tbl_map(function(key)
-        keybord(key,keys[key])
-    end,vim.tbl_keys(keys))
+    end)(keys)
 end
 
 return M

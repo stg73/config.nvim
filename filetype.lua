@@ -1,12 +1,12 @@
-vim.filetype.add({
+vim.filetype.add {
     extension = {
         skk = "skk-specialized",
         bnf = "bnf",
-        bak = function(path,bufnr) -- もとのファイル名を推測してファイルタイプを決定する
-            return vim.filetype.match({
+        bak = function(path,buf) -- もとのファイル名を推測してファイルタイプを決定する
+            return vim.filetype.match {
                 filename = require("string_utils").get.original_name_of_backup_file(path),
-                buf = bufnr
-            })
+                buf = buf,
+            }
         end,
     },
     filename = {
@@ -15,9 +15,9 @@ vim.filetype.add({
     },
     pattern = {
         ["SKK%-JISYO%..+"] = "skk", -- "SKK-JISYO.*"系
-        ["tags%-.+"] = "tags", -- "tags-ja"などに対応させる
-    }
-})
+        ["tags%-.+"] = "tags", -- "tags-ja"など
+    },
+}
 
 -- 検索でシンタクスハイライトが使えるように
 local group = vim.api.nvim_create_augroup("highlight-search",{})

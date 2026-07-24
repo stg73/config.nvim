@@ -23,7 +23,6 @@ end) {
     ["<esc>"] = "",
 }
 
-pkg = require("packages").module
 local im_off = function()
     require"IME".set_mode "ascii"
 end

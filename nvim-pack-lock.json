@@ -1,0 +1,32 @@
+{
+  "plugins": {
+    "hotpot.nvim": {
+      "rev": "e2717e481aba24721a6257378da0dad694d8dbff",
+      "src": "https://github.com/rktjmp/hotpot.nvim"
+    },
+    "jumpcursor.vim": {
+      "rev": "29669e27c0cbe65da8497c91585504bef846e255",
+      "src": "https://github.com/skanehira/jumpcursor.vim"
+    },
+    "nvimdoc-ja": {
+      "rev": "a9e8f5fe7c77d1271de2e8e59d4e20648975def8",
+      "src": "https://github.com/vim-jp/nvimdoc-ja"
+    },
+    "tokyonight.nvim": {
+      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
+      "src": "https://github.com/folke/tokyonight.nvim"
+    },
+    "vim-ambiwidth": {
+      "rev": "4fd05792acac85d29bb0dc08f720a49093abefad",
+      "src": "https://github.com/rbtnn/vim-ambiwidth"
+    },
+    "vim-surround": {
+      "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
+      "src": "https://github.com/tpope/vim-surround"
+    },
+    "vimdoc-ja": {
+      "rev": "ae6fc295ebaf649dc2347d742043ca0ec3a6f5a0",
+      "src": "https://github.com/vim-jp/vimdoc-ja"
+    }
+  }
+}

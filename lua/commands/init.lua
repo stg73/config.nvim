@@ -46,10 +46,10 @@ vim.api.nvim_create_user_command("SkkSort", k.sort,
 
 -- 最重要
 vim.api.nvim_create_user_command("SkkAnnotate", k.annotate,
-{bar = true,range = "%"})
+{bar = true,range = "%",nargs="*"})
 
 vim.api.nvim_create_user_command("SkkCountAnnotationErrors", k.count_annotation_errors,
-{bar = true,range = "%"})
+{bar = true,range = "%",nargs="*"})
 
 vim.api.nvim_create_user_command("SkkSearchAnnotationErrors", k.search_annotation_errors,
 {bar = true})

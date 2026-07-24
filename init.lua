@@ -2,7 +2,7 @@ vim.loader.enable()
 
 -- ローカルのプラグインをruntimepathに追加
 vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. name .. ".nvim") end,{
-    "modules", "jump_cursor", "syntax", "ghosttext", "socket",
+    "modules", "jump_cursor", "syntax", "skk", "ghosttext", "socket",
 })
 
 regex = require("regex")
@@ -106,8 +106,6 @@ vim.api.nvim_create_autocmd('vimenter',{
 
 -- neovimの中で起動した場合はgitのエディタとしてnvrを使う
 vim.env.git_editor = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
-
-vim.api.nvim_create_user_command("S",[[SkkAnnotate | SkkSort | write | execute "normal \<c-w>T"]],{bar = true}) -- 注釈を追加 ソート コミットするためterminalを出す
 
 -- helpを右側にいい感じに出す
 local set_help_position = function()

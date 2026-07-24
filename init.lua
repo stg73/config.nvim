@@ -52,9 +52,6 @@ require("ghosttext").start()
 nvim_on("CmdlineEnter",nil,function()
     require("commands").setup()
     vim.cmd.packadd("nvim.undotree")
-    str = require("str_util")
-    skk = require("skk")
-    char = require("char_map")
 
     -- 拡張
     vim.keymap.get = require("get_keymap").get
@@ -94,13 +91,6 @@ nvim_on("CmdlineEnter",nil,function()
     return true
 end)
 
-vim.api.nvim_create_autocmd({"bufenter","termopen"},{ -- オプションを強制する
-    group = group,
-    callback = function()
-        vim.opt.number = true
-    end
-})
-
 -- 起動時にterminalを開く
 vim.api.nvim_create_autocmd('vimenter',{
     group = vim.api.nvim_create_augroup("open-terminal-on-vimenter"),
@@ -123,7 +113,6 @@ vim.api.nvim_create_user_command("S",[[SkkAnnotate | SkkSort | write | execute "
 local set_help_position = function()
     if vim.bo.buftype == "help" then
         vim.cmd("wincmd L | vertical resize 85")
-        vim.opt.list = true
     end
 end
 vim.api.nvim_create_autocmd("BufWinEnter",{

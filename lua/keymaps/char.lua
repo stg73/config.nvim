@@ -32,7 +32,6 @@ local keys = {
 }
 
 function M.setup()
-    set({"i","v","t","o"},"\t","<cmd>set noexpandtab<cr><cmd>set shiftwidth=8<cr>\t<cmd>set expandtab<cr><cmd>set shiftwidth=4<cr>") -- vim.o.expandtab でもタブを入力する
     set("i","<leader>r","<cr>") -- Return
 
     fp.items(function(x,y)

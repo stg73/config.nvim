@@ -25,10 +25,14 @@ k("n","gss",function()
     search(vim.api.nvim_get_current_line())
 end)
 
--- scrollbind をトグル
+-- scrollbind
 k("n","<leader>O",function() -- scrOllbind
-    vim.o.scrollbind = not vim.o.scrollbind
+    vim.o.scrollbind = false
 end)
+k("n","<leader>o",function()
+    vim.o.scrollbind = true
+end)
+
 
 k("n","<leader>i",'pmq`[mz`qx`zP') -- 入れ換える "hoge,fuga" を "fuga,hoge" にするなど
 k("n","<leader>f","T/vf/") -- ファイルパスやSKK辞書を編集するため

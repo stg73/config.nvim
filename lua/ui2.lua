@@ -28,11 +28,6 @@ function M.setup()
         end,
     })
 
-    -- tOggle
-    vim.keymap.set("n","<leader>o",function()
-        vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
-    end)
-
     -- ui2のblendをset_hlできるようにする
     vim.api.nvim_create_autocmd("FileType",{
         group = vim.api.nvim_create_augroup("winblend"),

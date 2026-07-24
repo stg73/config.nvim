@@ -7,6 +7,8 @@ function M.setup()
 o.mouse = "" -- クリックに反応すると邪魔
 o.swapfile = false
 
+o.history = 1000 -- 10000も必要ないし読み込みに時間がかかる
+
 o.autochdir = true
 o.fileformats = {"unix","dos"}
 o.fileencodings = {
@@ -20,7 +22,7 @@ o.fileencodings = {
 -- 文字
 o.autoindent = true
 o.list = true
-o.listchars = { precedes = "(", extends = ")", space = "_", tab = ">--" }
+o.listchars = { precedes = "(", extends = ")", trail = "_", tab = ">--" }
 o.expandtab = true
 o.shiftwidth = 4
 o.matchpairs:append({ "<:>", "「:」", "『:』", "【:】" })

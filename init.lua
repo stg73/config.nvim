@@ -7,12 +7,6 @@ vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. na
 
 regex = require("regex")
 fp = require("fp")
-str = require("str_util")
-skk = require("skk")
-char = require("char_map")
-
--- 拡張
-vim.keymap.get = require("get_keymap").get
 
 vim.g.mapleader = "-"
 fp.items(function(k,v)
@@ -30,11 +24,11 @@ nvim_on = require"vim._core.util".nvim_on
 nvim_on("ModeChanged",vim.api.nvim_create_augroup("IM",{}),{ pattern = "*:n*" },im_off)
 -- 本来なら ModeChanged で十分だが、稀に ModeChanged が発生しないことがあるのでその対策
 nvim_on("CmdLineLeave","IM",im_off)
+
 fp.map(function(config)
     require(config).setup()
 end) {
     "packages",
-    "commands",
     "keymaps",
     "highlights",
     "options",
@@ -46,9 +40,6 @@ fp.items(vim.fn.setenv)(require("env"))
 vim.keymap.set({"o","n","v"},"<leader>j",require("select_pos").opt().set_cursor)
 vim.keymap.set({"o","n","v"},"<leader><leader>",require("select_pos").opt({ character = "\\s" }).set_cursor)
 
-require("ghosttext").start()
-vim.cmd.packadd("nvim.undotree")
-
 -- デフォルトプラグインを無効化
 fp.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
     "netrwPlugin", "gzip", "zipPlugin", "tutor_mode_plugin", "tarPlugin"
@@ -57,7 +48,51 @@ fp.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
 -- シンタクスハイライト
 vim.g.gitcommit_prefix = { "feat", "fix", "docs", "improve", "refactor", "style", "update", "init", }
 
-local group = vim.api.nvim_create_augroup('init')
+require("ghosttext").start()
+nvim_on("CmdlineEnter",nil,function()
+    require("commands").setup()
+    vim.cmd.packadd("nvim.undotree")
+    str = require("str_util")
+    skk = require("skk")
+    char = require("char_map")
+
+    -- 拡張
+    vim.keymap.get = require("get_keymap").get
+
+    -- カスタムURLスキーム
+    local s = require("url_scheme")
+    s.init()
+    s.add {
+        ht = require("open_webpage").open,
+        gh = require("open_github").open,
+    }
+
+    -- neovimのコマンドラインをシェルのコマンドラインとして使う
+    local escape_tmode = vim.keycode("<c-\\><c-n>")
+    function enter_shell_cmdline(opts)
+        opts = opts or {}
+        opts.timeout = opts.timeout or 160
+        opts.filetype = opts.filetype or "nu"
+
+        vim.bo[require("vim._core.ui2").bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
+        vim.ui.input({
+            prompt = ":",
+            completion = "shellcmdline",
+        },function(input)
+            if input then
+                vim.fn.feedkeys("a" .. input .. "\r" .. escape_tmode,"n")
+                vim.defer_fn(function()
+                    enter_shell_cmdline(opts)
+                    vim.fn.feedkeys("G","n")
+                end,opts.timeout)
+            end
+        end)
+    end
+
+    nvim = require("nvim")
+
+    return true
+end)
 
 vim.api.nvim_create_autocmd({"bufenter","termopen"},{ -- オプションを強制する
     group = group,
@@ -104,26 +139,8 @@ vim.api.nvim_create_autocmd("filetype",{
     end,
 })
 
--- カスタムURLスキーム
-local s = require("url_scheme")
-s.init()
-s.add {
-    ht = require("open_webpage").open,
-    gh = require("open_github").open,
-}
-
-local group = vim.api.nvim_create_augroup("filetype-settings")
-vim.api.nvim_create_autocmd("FileType",{
-    pattern = "help",
-    group = group,
-    callback = function()
-        -- vim.bo.iskeyword = vim.filetype.get_option("lua","iskeyword")
-        require"syntax".syntax "error" { match = "%>78v.*." }
-    end,
-})
-
 -- コマンドラインモードの <c-w> の挙動を統一する
-local iskeyword = vim.filetype.get_option("vim","iskeyword")
+local iskeyword = "@,48-57,_,192-255,#"
 local original -- 状態を保存する
 local group = vim.api.nvim_create_augroup("cmdline-iskeyword"),
 vim.api.nvim_create_autocmd("CmdLineEnter",{
@@ -139,30 +156,6 @@ vim.api.nvim_create_autocmd("CmdLineLeave",{
         vim.bo.iskeyword = original
     end,
 })
-
--- neovimのコマンドラインをシェルのコマンドラインとして使う
-local escape_tmode = vim.keycode("<c-\\><c-n>")
-function enter_shell_cmdline(opts)
-    opts = opts or {}
-    opts.timeout = opts.timeout or 160
-    opts.filetype = opts.filetype or "nu"
-
-    vim.bo[require("vim._core.ui2").bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
-    vim.ui.input({
-        prompt = ":",
-        completion = "shellcmdline",
-    },function(input)
-        if input then
-            vim.fn.feedkeys("a" .. input .. "\r" .. escape_tmode,"n")
-            vim.defer_fn(function()
-                enter_shell_cmdline(opts)
-                vim.fn.feedkeys("G","n")
-            end,opts.timeout)
-        end
-    end)
-end
-
-nvim = require("nvim")
 
 -- Nvimのアドレスのリストをファイルに保存する
 -- nvim --serverlist の代わり

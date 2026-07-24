@@ -3,3 +3,7 @@ local lang = vim.api.nvim_buf_get_name(0):match("(..)x$")
 if lang then
     vim.bo.tags = vim.o.tags .. ",tags-" .. lang
 end
+
+vim.defer_fn(function()
+    require"syntax".syntax "error" { match = "%>78v.*." }
+end,1)

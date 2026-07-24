@@ -51,7 +51,7 @@ fp.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
 -- シンタクスハイライト
 vim.g.gitcommit_prefix = { "feat", "fix", "docs", "improve", "refactor", "style", "update", "init", }
 
-local group = vim.api.nvim_create_augroup('init',{})
+local group = vim.api.nvim_create_augroup('init')
 
 vim.api.nvim_create_autocmd({"bufenter","termopen"},{ -- オプションを強制する
     group = group,
@@ -62,7 +62,7 @@ vim.api.nvim_create_autocmd({"bufenter","termopen"},{ -- オプションを強�
 
 -- 起動時にterminalを開く
 vim.api.nvim_create_autocmd('vimenter',{
-    group = vim.api.nvim_create_augroup("open-terminal-on-vimenter",{}),
+    group = vim.api.nvim_create_augroup("open-terminal-on-vimenter"),
     nested = true, -- terminal自動コマンド用
     callback = function()
         local buf_content = table.concat(vim.api.nvim_buf_get_lines(0,0,-1,false),'\n')
@@ -86,13 +86,13 @@ local set_help_position = function()
     end
 end
 vim.api.nvim_create_autocmd("BufWinEnter",{
-    group = vim.api.nvim_create_augroup("open-help-to-the-right",{}),
+    group = vim.api.nvim_create_augroup("open-help-to-the-right"),
     callback = vim.schedule_wrap(set_help_position), -- scheduleを挟まないとbuftypeが判断できない
 })
 
 -- treesitter
 vim.api.nvim_create_autocmd("filetype",{
-    group = vim.api.nvim_create_augroup("treesitter",{}),
+    group = vim.api.nvim_create_augroup("treesitter"),
     callback = function()
         pcall(vim.treesitter.start) -- ゴリ押し
     end,
@@ -106,7 +106,7 @@ s.add {
     gh = require("open_github").open,
 }
 
-local group = vim.api.nvim_create_augroup("filetype-settings",{})
+local group = vim.api.nvim_create_augroup("filetype-settings")
 vim.api.nvim_create_autocmd("FileType",{
     pattern = "help",
     group = group,
@@ -119,7 +119,7 @@ vim.api.nvim_create_autocmd("FileType",{
 -- コマンドラインモードの <c-w> の挙動を統一する
 local iskeyword = vim.filetype.get_option("vim","iskeyword")
 local original -- 状態を保存する
-local group = vim.api.nvim_create_augroup("cmdline-iskeyword",{}),
+local group = vim.api.nvim_create_augroup("cmdline-iskeyword"),
 vim.api.nvim_create_autocmd("CmdLineEnter",{
     group = group,
     callback = function()
@@ -171,7 +171,7 @@ local function update_addresses(file) return function(add_or_remove)
 end end
 
 local update = update_addresses(vim.env.XDG_STATE_HOME .. "/nvim_serverlist")
-local group = vim.api.nvim_create_augroup("manage_nvim_serverlist",{})
+local group = vim.api.nvim_create_augroup("manage_nvim_serverlist")
 vim.api.nvim_create_autocmd({"VimEnter","FocusGained"},{
     group = group,
     callback = function()

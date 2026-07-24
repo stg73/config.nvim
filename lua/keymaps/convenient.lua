@@ -46,10 +46,10 @@ k('n','<leader>T',"<cmd>tabs<cr>") -- Tabpageを一覧で見る
 k("n","<leader>I","<cmd>Inspect<cr>") -- Inspect
 -- cmwin 用マッピング
 vim.api.nvim_create_autocmd('cmdwinenter',{
-    group = vim.api.nvim_create_augroup("my-cmdwin",{}),
+    group = vim.api.nvim_create_augroup("my-cmdwin"),
     callback = function()
-        k('i','<leader>r','<esc>ld$o<c-r>"<esc>I',{ buffer = true })
-        k("n","<leader>n","<cr>",{ buffer = true })
+        k('i','<leader>r','<esc>ld$o<c-r>"<esc>I',{ buf = 0 })
+        k("n","<leader>n","<cr>",{ buf = 0 })
     end,
 })
 k('n','<c-n>','<cmd>bnext<cr><c-g>') -- Next

@@ -45,7 +45,7 @@ local set_shell_options = function()
 end
 vim.api.nvim_create_autocmd("OptionSet",{
     pattern = "shell",
-    group = vim.api.nvim_create_augroup("shell",{}),
+    group = vim.api.nvim_create_augroup("shell"),
     desc = "shell* 系オプションを 'shell' の値に合わせて設定する",
     callback = set_shell_options,
 })

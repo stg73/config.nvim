@@ -20,7 +20,7 @@ vim.filetype.add {
 }
 
 -- 検索でシンタクスハイライトが使えるように
-local group = vim.api.nvim_create_augroup("highlight-search",{})
+local group = vim.api.nvim_create_augroup("highlight-search")
 
 -- コマンドラインウィンドウ
 vim.api.nvim_create_autocmd('CmdWinEnter',{

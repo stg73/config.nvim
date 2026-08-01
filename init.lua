@@ -8,9 +8,8 @@ vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. na
 regex = require("regex")
 fp = require("fp")
 
-vim.g.mapleader = "-"
 fp.items(function(k,v)
-    vim.keymap.set({"n","i","v","c","t","o"},"<leader>" .. k,v)
+    vim.keymap.set({"i","c","t"},"<leader>" .. k,v)
 end) {
     [""] = "",
     ["<leader>"] = "<leader>",
@@ -129,7 +128,7 @@ vim.api.nvim_create_autocmd("filetype",{
 -- コマンドラインモードの <c-w> の挙動を統一する
 local iskeyword = "@,48-57,_,192-255,#"
 local original -- 状態を保存する
-local group = vim.api.nvim_create_augroup("cmdline-iskeyword"),
+local group = vim.api.nvim_create_augroup("cmdline-iskeyword")
 vim.api.nvim_create_autocmd("CmdLineEnter",{
     group = group,
     callback = function()

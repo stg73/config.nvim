@@ -3,7 +3,6 @@ local M = {}
 local set = vim.keymap.set
 
 -- vimの他のkeybindと機能を揃える
-set('i','<cr>','<esc>') -- <cr>で操作を完了・実行する
 set('i','<c-c>','<esc>u') -- <c-c>で中断する
 set('n','U','<c-r>') -- 大文字にすると逆になる
 set("i","<right>","<c-g>U<right>")
@@ -28,7 +27,6 @@ local brackets = {
 }
 
 function M.setup()
-    require("keymaps.char").setup()
     require("keymaps.convenient").setup()
 
     vim.tbl_map(function(str)

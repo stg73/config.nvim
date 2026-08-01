@@ -9,7 +9,6 @@ neovimのバージョンは nightly 69e1321731
 │   │   ╰─── help.lua -- vim help の編集用
 │   │
 │   ├── keymaps/ -- キーマップ
-│   │   ├─── char.lua -- 本来キーボードでやるべきこと
 │   │   ├─── convenient.lua -- 便利なもの
 │   │   ├─── hoge.lua -- その他
 │   │   ╰─── init.lua

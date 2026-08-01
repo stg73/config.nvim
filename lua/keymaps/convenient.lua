@@ -3,10 +3,6 @@ local M = {}
 local k = vim.keymap.set
 local r = require("regex")
 
-function M.setup()
--- <c-w>の拡張
-k("n","<c-w>T","<cmd>split | buffer term:<cr>") -- 楽にterminal bufferを使う
-
 -- 検索系
 local search = function(str)
     return vim.ui.open("https://google.com/search?q=" .. vim.uri_encode(str))
@@ -40,6 +36,10 @@ M.def_textobject = function(name,def)
     k("o",name,"<cmd>normal v" .. name .. "<cr>")
 end
 
+function M.setup()
+-- <c-w>の拡張
+k("n","<c-w>T","<cmd>split | buffer term:<cr>") -- 楽にterminal bufferを使う
+
 M.def_operator("gs",function(s,e)
     search(get_region(s,e))
 end)
@@ -65,21 +65,13 @@ k('n','<leader>!',function()
     local bang_cmd = r.gsub("!")("(^\\a+)@<=( |$)@=")(cmd)
     return ":" .. bang_cmd .. "\n" -- 直接コマンドを実行するとエラーメッセージが派手
 end,{ expr = true }) -- 前回実行したコマンドを強制実行する
-k('i','<leader>n','<esc>') k('t','<leader>n','<c-\\><c-n>') k('c','<leader>n','<cr>')
-k('n','<leader>n','a<cr><esc><c-\\><c-n>') -- 上にだいたい同じ
+k('t','<esc>','<c-\\><c-n>')
+k('t','<c-\\><esc>','<esc>')
 k('v','<leader>s','"qy:%s/\\V<c-r>"') k('n','<leader>s',[["qyiw:%s/\V\<<c-r>"\>]]) k('n','<leader>S',[["qyiw:'<,'>s/\V\<<c-r>"\>]]) -- Substitute
 k('n','<leader>b',"<cmd>ls<cr>") -- Bufferを一覧で見る
 k('n','<leader>B',"<cmd>ls!<cr>") -- すべてのBufferを一覧で見る
 k('n','<leader>T',"<cmd>tabs<cr>") -- Tabpageを一覧で見る
 k("n","<leader>I","<cmd>Inspect<cr>") -- Inspect
--- cmwin 用マッピング
-vim.api.nvim_create_autocmd('cmdwinenter',{
-    group = vim.api.nvim_create_augroup("my-cmdwin"),
-    callback = function()
-        k('i','<leader>r','<esc>ld$o<c-r>"<esc>I',{ buf = 0 })
-        k("n","<leader>n","<cr>",{ buf = 0 })
-    end,
-})
 k('n','<c-n>','<cmd>bnext<cr><c-g>') -- Next
 k('n','<c-p>','<cmd>bprevious<cr><c-g>') -- Previous
 local function update_cmdline(fn) return function()

@@ -25,7 +25,7 @@ nvim_on("ModeChanged",vim.api.nvim_create_augroup("IM",{}),{ pattern = "*:n*" },
 nvim_on("CmdLineLeave","IM",im_off)
 
 fp.map(function(config)
-    require(config).setup()
+    require(config)
 end) {
     "packages",
     "keymaps",
@@ -49,7 +49,7 @@ vim.g.gitcommit_prefix = { "feat", "fix", "docs", "improve", "refactor", "style"
 
 require("ghosttext").start()
 nvim_on("CmdlineEnter",nil,function()
-    require("commands").setup()
+    require("commands")
     vim.cmd.packadd("nvim.undotree")
 
     -- 拡張

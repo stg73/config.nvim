@@ -1,8 +1,5 @@
-local M = {}
-
 local gh = function(x) return "https://github.com/" .. x end
 
-function M.setup()
 vim.pack.add({
     -- gh "skanehira/jumpcursor.vim",
     gh "folke/tokyonight.nvim",
@@ -59,6 +56,3 @@ nvim_on("CmdlineEnter",vim.api.nvim_create_augroup("lazyload"),function()
 
     return true
 end)
-end
-
-return M

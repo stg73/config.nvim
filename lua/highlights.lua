@@ -1,9 +1,6 @@
-local M = {}
-
 local h = require("fp").curry(3)(vim.api.nvim_set_hl)(0)
 local l = require("syntax").link
 
-function M.setup()
 l "keyword" "@keyword"
 h 'constant' { fg = '#dd8d53' }
 h 'comment' { fg = '#676f9a' }
@@ -24,6 +21,3 @@ h "PmenuMatchSel" { bg = vim.api.nvim_get_hl(0,{name="PmenuSel"}).bg, fg = vim.a
 h "PmenuMatch" { fg = vim.api.nvim_get_hl(0,{name="PmenuMatchSel"}).fg }
 h "NormalFloat" { bg = "#333344", blend = 20 }
 l "MsgArea" "NormalFloat"
-end
-
-return M

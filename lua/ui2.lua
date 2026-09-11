@@ -1,41 +1,35 @@
-local M = {}
+local ui2 = require("vim._core.ui2")
 
-function M.setup()
-    local ui2 = require("vim._core.ui2")
+vim.o.cmdheight = 0
+ui2.enable({
+    enable = true,
+    msg = {
+        targets = "msg",
+        msg = { timeout = 2000 }
+    }
+})
 
-    vim.o.cmdheight = 0
-    ui2.enable({
-        enable = true,
-        msg = {
-            targets = "msg",
-            timeout = 2000,
-        }
-    })
+local group = vim.api.nvim_create_augroup("show-recording-message")
+vim.api.nvim_create_autocmd("RecordingEnter",{
+    group = group,
+    nested = true, -- ui2にオプションを反映する
+    callback = function()
+        vim.o.cmdheight = 1
+    end,
+})
+vim.api.nvim_create_autocmd("RecordingLeave",{
+    group = group,
+    nested = true, -- ui2にオプションを反映する
+    callback = function()
+        vim.o.cmdheight = 0
+    end,
+})
 
-    local group = vim.api.nvim_create_augroup("show-recording-message")
-    vim.api.nvim_create_autocmd("RecordingEnter",{
-        group = group,
-        nested = true, -- ui2にオプションを反映する
-        callback = function()
-            vim.o.cmdheight = 1
-        end,
-    })
-    vim.api.nvim_create_autocmd("RecordingLeave",{
-        group = group,
-        nested = true, -- ui2にオプションを反映する
-        callback = function()
-            vim.o.cmdheight = 0
-        end,
-    })
-
-    -- ui2のblendをset_hlできるようにする
-    vim.api.nvim_create_autocmd("FileType",{
-        group = vim.api.nvim_create_augroup("winblend"),
-        pattern = {"msg","pager"},
-        callback = function()
-            vim.wo.winblend = 1
-        end,
-    })
-end
-
-return M
+-- ui2のblendをset_hlできるようにする
+vim.api.nvim_create_autocmd("FileType",{
+    group = vim.api.nvim_create_augroup("winblend"),
+    pattern = {"msg","pager"},
+    callback = function()
+        vim.wo.winblend = 1
+    end,
+})

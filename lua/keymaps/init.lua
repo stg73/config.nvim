@@ -1,5 +1,3 @@
-local M = {}
-
 local set = vim.keymap.set
 
 -- vimの他のkeybindと機能を揃える
@@ -7,7 +5,7 @@ set('i','<c-c>','<esc>u') -- <c-c>で中断する
 set('n','U','<c-r>') -- 大文字にすると逆になる
 set("i","<right>","<c-g>U<right>")
 
-function M.bracket(start,finish)
+local function bracket(start,finish)
     set("i","<leader>" .. start,start .. finish .. "<c-g>U<left>")
     set({"c","t"},"<leader>" .. start,start .. finish .. "<left>")
 end
@@ -26,20 +24,16 @@ local brackets = {
     "【】",
 }
 
-function M.setup()
-    require("keymaps.convenient").setup()
+require("keymaps.convenient").setup()
 
-    vim.tbl_map(function(str)
-        local s,e = require("regex").find(".")(str)
-        M.bracket(string.sub(str,s,e),string.sub(str,e + 1))
-    end,brackets)
+vim.tbl_map(function(str)
+    local s,e = require("regex").find(".")(str)
+    bracket(string.sub(str,s,e),string.sub(str,e + 1))
+end,brackets)
 
-    fp.items(function(k,start)
-        set({"i","c","t"},k,"<leader>" .. start,{ remap = true })
-    end) {
-        ["<c-b>"] = "(", -- Bracket
-        ["<c-d>"] = '"', -- Double quote
-    }
-end
-
-return M
+fp.items(function(k,start)
+    set({"i","c","t"},k,"<leader>" .. start,{ remap = true })
+end) {
+    ["<c-b>"] = "(", -- Bracket
+    ["<c-d>"] = '"', -- Double quote
+}

@@ -1,8 +1,5 @@
-local M = {}
-
 local o = vim.opt
 
-function M.setup()
 -- 無効化
 o.mouse = "" -- クリックに反応すると邪魔
 o.swapfile = false
@@ -63,6 +60,3 @@ o.wrapscan = false -- 終わりを知りたい
 o.gdefault = true -- 既定で行のすべてを置換する
 
 o.timeout = false -- キーマップを楽に使う
-end
-
-return M

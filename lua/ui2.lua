@@ -9,7 +9,7 @@ ui2.enable({
     }
 })
 
-local group = vim.api.nvim_create_augroup("show-recording-message")
+local group = vim.api.nvim_create_augroup("show-recording-message",{})
 vim.api.nvim_create_autocmd("RecordingEnter",{
     group = group,
     nested = true, -- ui2にオプションを反映する
@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("RecordingLeave",{
 
 -- ui2のblendをset_hlできるようにする
 vim.api.nvim_create_autocmd("FileType",{
-    group = vim.api.nvim_create_augroup("winblend"),
+    group = vim.api.nvim_create_augroup("winblend",{}),
     pattern = {"msg","pager"},
     callback = function()
         vim.wo.winblend = 1

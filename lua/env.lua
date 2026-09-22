@@ -1,12 +1,16 @@
-return {
-    i = vim.env.myvimrc, -- Init.lua
-    n = vim.fs.dirname(vim.env.myvimrc), -- Nvim
-    c = vim.env.xdg_config_home, -- Config
-    w = vim.env.works, -- Works
-    f = vim.env.forks, -- Forks
-    s = vim.env.appdata .. '/CorvusSKK', -- corvusSkk
-    d = vim.env.works .. "/dictionaries.skk", -- Dictionaries.skk
-    l = vim.env.works .. "/modules.nvim/lua", -- Lua
-    t = vim.env.home .. "/test", -- Test
-    m = vim.env.home .. "/memos", -- Memos
+local env = {
+    i = vim.env.MYVIMRC, -- Init.lua
+    n = vim.fs.dirname(vim.env.MYVIMRC), -- Nvim
+    c = vim.env.XDG_CONFIG_HOME, -- Config
+    w = vim.env.HOME .. "/works", -- Works
+    f = vim.env.HOME .. "/forks", -- Forks
+    d = vim.env.HOME .. "/works/dictionaries.skk", -- Dictionaries.skk
+    l = vim.env.HOME .. "/works/modules.nvim/lua", -- Lua
+    t = vim.env.HOME .. "/test", -- Test
+    m = vim.env.HOME .. "/memos", -- Memos
 }
+if vim.fn.has "win32" == 1 then
+    env.s = vim.env.appdata .. '/CorvusSKK' -- corvusSkk
+end
+
+return env

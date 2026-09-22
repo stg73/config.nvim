@@ -8,7 +8,7 @@ M.default = {
 M.shells = {
     nu = {
         -- 設定を読み込む 余計な行を表示しない ":%!ls" などが使えるように
-        shellcmdflag = "--login --no-newline --stdin --commands",
+        shellcmdflag = "--config ~/.config/nushell/config.nu --no-newline --stdin --commands",
     },
     pwsh = {
         shellcmdflag = "-Command $PSStyle.OutputRendering = 'PlainText';",

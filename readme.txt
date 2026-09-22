@@ -1,5 +1,6 @@
 neovimのconfig
-neovimのバージョンは nightly 69e1321731
+neovimのバージョンは nightly v0.13 69e1321731
+サブpcでは release v0.12 を使っている。
 
 ディレクトリ構造
 ├── lua/
@@ -10,7 +11,6 @@ neovimのバージョンは nightly 69e1321731
 │   │
 │   ├── keymaps/ -- キーマップ
 │   │   ├─── convenient.lua -- 便利なもの
-│   │   ├─── hoge.lua -- その他
 │   │   ╰─── init.lua
 │   │
 │   ├── env.lua -- 環境変数
@@ -19,6 +19,7 @@ neovimのバージョンは nightly 69e1321731
 │   ├── options.lua -- オプションの設定
 │   ├── packages.lua -- プラグインの読み込みと設定
 │   ├── shell.lua -- シェル毎のオプション
+│   ├── terminal_multiplexer.lua -- Nvimをターミナルマルチプレクサとして使う。タイリングウィンドウマネージャがない場合用
 │   ╰── ui2.lua -- ui2の設定
 │
 ├── syntax/ -- 標準のハイライトを少し修正

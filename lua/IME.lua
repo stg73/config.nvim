@@ -1,5 +1,11 @@
 local M = {}
 
+if vim.fn.has("win32") == 0 then
+    return {
+        set_mode = function()
+        end,
+    }
+end
 -- 参考にしたもの: https://qiita.com/kenichiro_ayaki/items/d55005df2787da725c6f
 local ffi = require"ffi"
 c = ffi.C

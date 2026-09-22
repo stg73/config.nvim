@@ -44,7 +44,7 @@ local set_shell_options = function()
 end
 vim.api.nvim_create_autocmd("OptionSet",{
     pattern = "shell",
-    group = vim.api.nvim_create_augroup("shell"),
+    group = vim.api.nvim_create_augroup("shell",{}),
     desc = "shell* 系オプションを 'shell' の値に合わせて設定する",
     callback = set_shell_options,
 })
@@ -53,7 +53,9 @@ o.shell = "nu"
 set_shell_options()
 
 o.warn = false
-o.completeslash = "slash" -- スラッシュのほうが扱いやすい
+if vim.fn.has "win32" == 1 then
+    o.completeslash = "slash"
+end
 
 -- 検索・置換
 o.wrapscan = false -- 終わりを知りたい

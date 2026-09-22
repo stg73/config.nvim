@@ -1,9 +1,23 @@
 vim.loader.enable()
 
--- ローカルのプラグインをruntimepathに追加
-vim.tbl_map(function(name) vim.opt.runtimepath:append(vim.env.works .. "/" .. name .. ".nvim") end,{
-    "modules", "jump_cursor", "syntax", "skk", "ghosttext", "socket",
-})
+local is_main_computer = vim.fn.has "win32" == 1
+local is_using_tiling_window_manager = vim.fn.has "win32" == 0
+local use_nvim_as_terminal_multiplexer = not is_using_tiling_window_manager
+
+if is_main_computer then
+    -- ローカルのプラグインをruntimepathに追加
+    vim.tbl_map(function(name) vim.opt.runtimepath:append("~/works/" .. name .. ".nvim") end,{
+        "modules", "jump_cursor", "syntax", "skk", "ghosttext", "socket",
+    })
+else
+    local gh = function(x) return "https://github.com/stg73/" .. x .. ".nvim" end
+    vim.pack.add {
+        gh "modules",
+        gh "jump_cursor",
+        gh "syntax",
+        gh "skk",
+    }
+end
 
 regex = require("regex")
 fp = require("fp")
@@ -16,13 +30,33 @@ end) {
     ["<esc>"] = "",
 }
 
+if vim.fn.has "nvim-0.13" == 1 then
+    nvim_on = require"vim._core.util".nvim_on
+else
+    function nvim_on(events, group, opts_or_fn, fn)
+        vim.validate('opts_or_fn', opts_or_fn, { 'function', 'table' })
+        local opts --- @type vim.api.keyset.create_autocmd
+        if type(opts_or_fn) == 'function' then
+            fn, opts = opts_or_fn, {}
+        else
+            opts = opts_or_fn
+        end
+        opts.group = group
+        opts.callback = fn
+        return vim.api.nvim_create_autocmd(events, opts)
+    end
+end
+
 local im_off = function()
     require"IME".set_mode "ascii"
 end
-nvim_on = require"vim._core.util".nvim_on
 nvim_on("ModeChanged",vim.api.nvim_create_augroup("IM",{}),{ pattern = "*:n*" },im_off)
 -- 本来なら ModeChanged で十分だが、稀に ModeChanged が発生しないことがあるのでその対策
 nvim_on("CmdLineLeave","IM",im_off)
+
+if use_nvim_as_terminal_multiplexer then
+    require "terminal_multiplexer"
+end
 
 fp.map(function(config)
     require(config)
@@ -47,7 +81,9 @@ fp.map(function(plugin) vim.g["loaded_" .. plugin] = true end)({
 -- シンタクスハイライト
 vim.g.gitcommit_prefix = { "feat", "fix", "docs", "improve", "refactor", "style", "update", "init", }
 
-require("ghosttext").start()
+if is_main_computer then
+    require("ghosttext").start()
+end
 nvim_on("CmdlineEnter",nil,function()
     require("commands")
     vim.cmd.packadd("nvim.undotree")
@@ -63,48 +99,10 @@ nvim_on("CmdlineEnter",nil,function()
         gh = require("open_github").open,
     }
 
-    -- neovimのコマンドラインをシェルのコマンドラインとして使う
-    local escape_tmode = vim.keycode("<c-\\><c-n>")
-    function enter_shell_cmdline(opts)
-        opts = opts or {}
-        opts.timeout = opts.timeout or 160
-        opts.filetype = opts.filetype or "nu"
-
-        vim.bo[require("vim._core.ui2").bufs.cmd].syntax = opts.filetype -- 使うシェルのハイライト
-        vim.ui.input({
-            prompt = ":",
-            completion = "shellcmdline",
-        },function(input)
-            if input then
-                vim.fn.feedkeys("a" .. input .. "\r" .. escape_tmode,"n")
-                vim.defer_fn(function()
-                    enter_shell_cmdline(opts)
-                    vim.fn.feedkeys("G","n")
-                end,opts.timeout)
-            end
-        end)
-    end
-
     nvim = require("nvim")
 
     return true
 end)
-
--- 起動時にterminalを開く
-vim.api.nvim_create_autocmd('vimenter',{
-    group = vim.api.nvim_create_augroup("open-terminal-on-vimenter"),
-    nested = true, -- terminal自動コマンド用
-    callback = function()
-        local buf_content = table.concat(vim.api.nvim_buf_get_lines(0,0,-1,false),'\n')
-        local buf_name = vim.api.nvim_buf_get_name(0)
-        if buf_content .. buf_name == "" then
-            vim.cmd.terminal()
-        end
-    end
-})
-
--- neovimの中で起動した場合はgitのエディタとしてnvrを使う
-vim.env.git_editor = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
 
 -- helpを右側にいい感じに出す
 local set_help_position = function()
@@ -113,13 +111,13 @@ local set_help_position = function()
     end
 end
 vim.api.nvim_create_autocmd("BufWinEnter",{
-    group = vim.api.nvim_create_augroup("open-help-to-the-right"),
+    group = vim.api.nvim_create_augroup("open-help-to-the-right",{}),
     callback = vim.schedule_wrap(set_help_position), -- scheduleを挟まないとbuftypeが判断できない
 })
 
 -- treesitter
 vim.api.nvim_create_autocmd("filetype",{
-    group = vim.api.nvim_create_augroup("treesitter"),
+    group = vim.api.nvim_create_augroup("treesitter",{}),
     callback = function()
         pcall(vim.treesitter.start) -- ゴリ押し
     end,
@@ -128,7 +126,7 @@ vim.api.nvim_create_autocmd("filetype",{
 -- コマンドラインモードの <c-w> の挙動を統一する
 local iskeyword = "@,48-57,_,192-255,#"
 local original -- 状態を保存する
-local group = vim.api.nvim_create_augroup("cmdline-iskeyword")
+local group = vim.api.nvim_create_augroup("cmdline-iskeyword",{})
 vim.api.nvim_create_autocmd("CmdLineEnter",{
     group = group,
     callback = function()
@@ -142,32 +140,3 @@ vim.api.nvim_create_autocmd("CmdLineLeave",{
         vim.bo.iskeyword = original
     end,
 })
-
--- Nvimのアドレスのリストをファイルに保存する
--- nvim --serverlist の代わり
--- これを利用するもの: https://github.com/stg73/config.nu/blob/main/neovim-remote.nu
-local function update_addresses(file) return function(add_or_remove)
-    local content = vim.fn.readfile(file)
-    local new_content = fp.filter(function(server) return server ~= vim.v.servername end)(content)
-    if add_or_remove then
-        table.insert(new_content,vim.v.servername)
-    end
-    vim.fn.writefile(new_content,file)
-end end
-
-local update = update_addresses(vim.env.XDG_STATE_HOME .. "/nvim_serverlist")
-local group = vim.api.nvim_create_augroup("manage_nvim_serverlist")
-vim.api.nvim_create_autocmd({"VimEnter","FocusGained"},{
-    group = group,
-    callback = function()
-        update(true)
-    end,
-})
-
-vim.api.nvim_create_autocmd("VimLeavePre",{
-    group = group,
-    callback = function()
-        update(false)
-    end,
-})
-

@@ -16,7 +16,7 @@ require("tokyonight").load({
     },
 })
 
-nvim_on("CmdlineEnter",vim.api.nvim_create_augroup("lazyload"),function()
+nvim_on("CmdlineEnter",vim.api.nvim_create_augroup("lazyload",{}),function()
     vim.pack.add({
         gh "vim-jp/vimdoc-ja",
         gh "vim-jp/nvimdoc-ja",

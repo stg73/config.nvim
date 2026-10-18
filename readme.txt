@@ -33,4 +33,5 @@ neovimのバージョンは nightly v0.13 4b5dcbccd7
 │
 ├── filetype.lua
 ├── init.lua
+├── install-nvim-dev.nu -- nvimの開発版をインストールする
 ╰── readme.txt

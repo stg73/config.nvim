@@ -48,7 +48,9 @@ else
 end
 
 local im_off = function()
-    require"IME".set_mode "ascii"
+    if vim.fn.has "win32" == 1 then
+        vim.system { "win-im-ctl", "set-mode", "0" }
+    end
 end
 nvim_on("ModeChanged",vim.api.nvim_create_augroup("IM",{}),{ pattern = "*:n*" },im_off)
 -- 本来なら ModeChanged で十分だが、稀に ModeChanged が発生しないことがあるのでその対策

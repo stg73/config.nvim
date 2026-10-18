@@ -1,13 +1,23 @@
 local ui2 = require("vim._core.ui2")
 
 vim.o.cmdheight = 0
-ui2.enable({
-    enable = true,
-    msg = {
-        targets = "msg",
-        msg = { timeout = 2000 }
+if vim.fn.has "nvim-0.13" == 1 then
+    ui2.enable {
+        enable = true,
+        msg = {
+            targets = "msg",
+        }
     }
-})
+    vim.opt.messagesopt:append { timeout = 2000 }
+else
+    ui2.enable {
+        enable = true,
+        msg = {
+            targets = "msg",
+            timeout = 2000,
+        }
+    }
+end
 
 local group = vim.api.nvim_create_augroup("show-recording-message",{})
 vim.api.nvim_create_autocmd("RecordingEnter",{

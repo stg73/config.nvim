@@ -1,5 +1,5 @@
 neovimのconfig
-neovimのバージョンは nightly v0.13 69e1321731
+neovimのバージョンは nightly v0.13 4b5dcbccd7
 サブpcでは release v0.12 を使っている。
 
 ディレクトリ構造

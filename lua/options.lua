@@ -40,7 +40,7 @@ o.showtabline = 0
 local set_shell_options = function()
     fp.items(function(opt,val)
         vim.o[opt] = val
-    end)(require("shell").options(vim.o.shell))
+    end)(require("options.shell").options(vim.o.shell))
 end
 vim.api.nvim_create_autocmd("OptionSet",{
     pattern = "shell",

@@ -4,19 +4,18 @@ neovimのバージョンは nightly v0.13 4b5dcbccd7
 
 ディレクトリ構造
 ├── lua/
-│   ├── commands/ -- Exコマンド
-│   │   ├─── init.lua
+│   ├── excmds.lua
+│   ├── excmds/
 │   │   ├─── nu.lua -- nu を編集する用
 │   │   ╰─── help.lua -- vim help の編集用
 │   │
-│   ├── keymaps/ -- キーマップ
-│   │   ├─── convenient.lua -- 便利なもの
-│   │   ╰─── init.lua
-│   │
+│   ├── keymaps.lua
 │   ├── env.lua -- 環境変数
 │   ├── highlights.lua -- set_hl
-│   ├── nvim.lua -- vim.api のラッパー
+│   ├── nvim.lua -- vim.api.nvim_* を nvim.* としてアクセスできるようにする
 │   ├── options.lua -- オプションの設定
+│   ├── options/
+│   │   ╰─── shell.lua -- シェル毎のオプション
 │   ├── packages.lua -- プラグインの読み込みと設定
 │   ├── shell.lua -- シェル毎のオプション
 │   ├── terminal_multiplexer.lua -- Nvimをターミナルマルチプレクサとして使う。タイリングウィンドウマネージャがない場合用

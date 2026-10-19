@@ -87,7 +87,7 @@ if is_main_computer then
     require("ghosttext").start()
 end
 nvim_on("CmdlineEnter",nil,function()
-    require("commands")
+    require("excmds")
     vim.cmd.packadd("nvim.undotree")
 
     -- 拡張
